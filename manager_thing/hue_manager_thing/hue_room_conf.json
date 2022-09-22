@@ -1,0 +1,17 @@
+{
+  "select": "caplab",
+  "room_list": [
+    {
+      "room_name": "caplab",
+      "bridge_ip": "http://147.46.114.165/api/",
+      "bridge_port": 80,
+      "user_key": "L-idzo6XFfRVA-DzXyA66xKzi-KxIJA75neakYyS"
+    },
+    {
+      "room_name": "gulliver",
+      "bridge_ip": "http://147.46.216.33/api/",
+      "bridge_port": 80,
+      "user_key": "xPPceif9YKzza6M7BI0qCSuY32buKqE6XMjgadL4"
+    }
+  ]
+}

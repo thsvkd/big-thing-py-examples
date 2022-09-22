@@ -1,0 +1,11 @@
+{
+  "select": "caplab",
+  "account_list": [
+    {
+      "account_name": "caplab",
+      "bridge_ip": "https://goqual.io/openapi",
+      "bridge_port": 80,
+      "user_key": "16502431-6249-474c-aeb0-f2d18e66aaac"
+    }
+  ]
+}

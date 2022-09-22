@@ -1,0 +1,5 @@
+adafruit-circuitpython-tsl2591
+adafruit-circuitpython-bme280
+adafruit-circuitpython-bme680
+adafruit-circuitpython-sgp30
+board

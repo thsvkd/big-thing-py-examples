@@ -1,0 +1,1440 @@
+{
+    "services": [
+        {
+            "middleware": "Middleware222222_DCA632DD3CB5",
+            "hierarchy": "local",
+            "things": [
+                {
+                    "id": "builtin_DCA632DD3CB5",
+                    "is_alive": 1,
+                    "is_super": 0,
+                    "alive_cycle": 60,
+                    "values": [],
+                    "functions": [
+                        {
+                            "name": "get_flower_recognizer_arg",
+                            "description": "No Information",
+                            "return_type": "string",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3CB5"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "file",
+                                    "order": 0,
+                                    "type": "binary",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "1000000"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "get_human_count_arg",
+                            "description": "No Information",
+                            "return_type": "int",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3CB5"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "file",
+                                    "order": 0,
+                                    "type": "binary",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "1000000"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "get_human_emotion_arg",
+                            "description": "No Information",
+                            "return_type": "string",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3CB5"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "file",
+                                    "order": 0,
+                                    "type": "binary",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "1000000"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "get_weather_arg",
+                            "description": "No Information",
+                            "return_type": "string",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3CB5"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "tts",
+                            "description": "No Information",
+                            "return_type": "void",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3CB5"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "text",
+                                    "order": 0,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "100"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "lunch_menu",
+                            "description": "No Information",
+                            "return_type": "void",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3CB5"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "dinner_menu",
+                            "description": "No Information",
+                            "return_type": "void",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3CB5"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "send_mail",
+                            "description": "No Information",
+                            "return_type": "void",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3CB5"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "address",
+                                    "order": 0,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "1",
+                                        "max_value": "50"
+                                    }
+                                },
+                                {
+                                    "name": "subject",
+                                    "order": 1,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "100"
+                                    }
+                                },
+                                {
+                                    "name": "content",
+                                    "order": 2,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "1000"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "send_mail_with_attachment",
+                            "description": "No Information",
+                            "return_type": "void",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3CB5"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "address",
+                                    "order": 0,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "1",
+                                        "max_value": "50"
+                                    }
+                                },
+                                {
+                                    "name": "subject",
+                                    "order": 1,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "100"
+                                    }
+                                },
+                                {
+                                    "name": "body",
+                                    "order": 2,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "1000"
+                                    }
+                                },
+                                {
+                                    "name": "file",
+                                    "order": 3,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "100000"
+                                    }
+                                },
+                                {
+                                    "name": "name",
+                                    "order": 4,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "100"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "SuperThingTest_D45D64A628DB",
+                    "is_alive": 1,
+                    "is_super": 1,
+                    "alive_cycle": 10,
+                    "values": [],
+                    "functions": [
+                        {
+                            "name": "on_all",
+                            "description": "No Information",
+                            "return_type": "string",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 10,
+                            "tags": [
+                                {
+                                    "name": "super_thing"
+                                },
+                                {
+                                    "name": "SuperThingTest_D45D64A628DB"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "off_all",
+                            "description": "No Information",
+                            "return_type": "string",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 10,
+                            "tags": [
+                                {
+                                    "name": "super_thing"
+                                },
+                                {
+                                    "name": "SuperThingTest_D45D64A628DB"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "notify_professor",
+                            "description": "No Information",
+                            "return_type": "string",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 10,
+                            "tags": [
+                                {
+                                    "name": "super_thing"
+                                },
+                                {
+                                    "name": "SuperThingTest_D45D64A628DB"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "r",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "g",
+                                    "order": 1,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "b",
+                                    "order": 2,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "test_request_value",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 10,
+                            "tags": [
+                                {
+                                    "name": "super_thing"
+                                },
+                                {
+                                    "name": "SuperThingTest_D45D64A628DB"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "test_request_line",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 10,
+                            "tags": [
+                                {
+                                    "name": "super_thing"
+                                },
+                                {
+                                    "name": "SuperThingTest_D45D64A628DB"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "super_hue_off",
+                            "description": "No Information",
+                            "return_type": "string",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 10,
+                            "tags": [
+                                {
+                                    "name": "super_thing"
+                                },
+                                {
+                                    "name": "SuperThingTest_D45D64A628DB"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "middleware": "Middleware1_DCA632DD3C5D",
+            "hierarchy": "child",
+            "things": [
+                {
+                    "id": "builtin_DCA632DD3C5D",
+                    "is_alive": 1,
+                    "is_super": 0,
+                    "alive_cycle": 60,
+                    "values": [],
+                    "functions": [
+                        {
+                            "name": "get_flower_recognizer_arg",
+                            "description": "No Information",
+                            "return_type": "string",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3C5D"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "file",
+                                    "order": 0,
+                                    "type": "binary",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "1000000"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "get_human_count_arg",
+                            "description": "No Information",
+                            "return_type": "int",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3C5D"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "file",
+                                    "order": 0,
+                                    "type": "binary",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "1000000"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "get_human_emotion_arg",
+                            "description": "No Information",
+                            "return_type": "string",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3C5D"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "file",
+                                    "order": 0,
+                                    "type": "binary",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "1000000"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "get_weather_arg",
+                            "description": "No Information",
+                            "return_type": "string",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3C5D"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "tts",
+                            "description": "No Information",
+                            "return_type": "void",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3C5D"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "text",
+                                    "order": 0,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "100"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "lunch_menu",
+                            "description": "No Information",
+                            "return_type": "void",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3C5D"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "dinner_menu",
+                            "description": "No Information",
+                            "return_type": "void",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3C5D"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "send_mail",
+                            "description": "No Information",
+                            "return_type": "void",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3C5D"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "address",
+                                    "order": 0,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "1",
+                                        "max_value": "50"
+                                    }
+                                },
+                                {
+                                    "name": "subject",
+                                    "order": 1,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "100"
+                                    }
+                                },
+                                {
+                                    "name": "content",
+                                    "order": 2,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "1000"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "send_mail_with_attachment",
+                            "description": "No Information",
+                            "return_type": "void",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "builtin_DCA632DD3C5D"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "address",
+                                    "order": 0,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "1",
+                                        "max_value": "50"
+                                    }
+                                },
+                                {
+                                    "name": "subject",
+                                    "order": 1,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "100"
+                                    }
+                                },
+                                {
+                                    "name": "body",
+                                    "order": 2,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "1000"
+                                    }
+                                },
+                                {
+                                    "name": "file",
+                                    "order": 3,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "100000"
+                                    }
+                                },
+                                {
+                                    "name": "name",
+                                    "order": 4,
+                                    "type": "string",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "100"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "stand3",
+                    "is_alive": 1,
+                    "is_super": 0,
+                    "alive_cycle": 10,
+                    "values": [],
+                    "functions": [
+                        {
+                            "name": "on",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand3"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ad:42:9d-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "off",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand3"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ad:42:9d-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_brightness",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand3"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ad:42:9d-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "brightness",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_color",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand3"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ad:42:9d-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "r",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "g",
+                                    "order": 1,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "b",
+                                    "order": 2,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "stand1",
+                    "is_alive": 1,
+                    "is_super": 0,
+                    "alive_cycle": 10,
+                    "values": [],
+                    "functions": [
+                        {
+                            "name": "on",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ae:67:7b-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "off",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ae:67:7b-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_brightness",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ae:67:7b-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "brightness",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_color",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ae:67:7b-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "r",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "g",
+                                    "order": 1,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "b",
+                                    "order": 2,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "stand2",
+                    "is_alive": 1,
+                    "is_super": 0,
+                    "alive_cycle": 10,
+                    "values": [],
+                    "functions": [
+                        {
+                            "name": "on",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand2"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ae:6c:be-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "off",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand2"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ae:6c:be-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_brightness",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand2"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ae:6c:be-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "brightness",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_color",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "stand2"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ae:6c:be-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "r",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "g",
+                                    "order": 1,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "b",
+                                    "order": 2,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "strip1",
+                    "is_alive": 1,
+                    "is_super": 0,
+                    "alive_cycle": 10,
+                    "values": [],
+                    "functions": [
+                        {
+                            "name": "on",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "strip1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ba:f0:dd-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "off",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "strip1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ba:f0:dd-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_brightness",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "strip1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ba:f0:dd-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "brightness",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_color",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "strip1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ba:f0:dd-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "r",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "g",
+                                    "order": 1,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "b",
+                                    "order": 2,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "strip2",
+                    "is_alive": 1,
+                    "is_super": 0,
+                    "alive_cycle": 10,
+                    "values": [],
+                    "functions": [
+                        {
+                            "name": "on",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "strip2"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ba:eb:02-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "off",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "strip2"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ba:eb:02-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_brightness",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "strip2"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ba:eb:02-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "brightness",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_color",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "strip2"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:ba:eb:02-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "r",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "g",
+                                    "order": 1,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "b",
+                                    "order": 2,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "moodlight1",
+                    "is_alive": 1,
+                    "is_super": 0,
+                    "alive_cycle": 10,
+                    "values": [],
+                    "functions": [
+                        {
+                            "name": "on",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "moodlight1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:1f:a3:a0-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "off",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 0,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "moodlight1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:1f:a3:a0-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_brightness",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "moodlight1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:1f:a3:a0-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "brightness",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "set_color",
+                            "description": "No Information",
+                            "return_type": "bool",
+                            "use_arg": 1,
+                            "is_private": 0,
+                            "is_available": 0,
+                            "exec_time": 0,
+                            "tags": [
+                                {
+                                    "name": "moodlight1"
+                                },
+                                {
+                                    "name": "00:17:88:01:09:1f:a3:a0-0b"
+                                },
+                                {
+                                    "name": "Hue"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "r",
+                                    "order": 0,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "g",
+                                    "order": 1,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                },
+                                {
+                                    "name": "b",
+                                    "order": 2,
+                                    "type": "int",
+                                    "bound": {
+                                        "min_value": "0",
+                                        "max_value": "255"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
