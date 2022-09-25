@@ -12,17 +12,19 @@ detections_pick = None
 detected_object_window = {}
 
 
-def parser():
+def arg_parse():
     parser = argparse.ArgumentParser(description="YOLO Object Detection")
 
-    parser.add_argument("--name", '-n', action='store',
-                        required=False, default='TestSuperClient', help="client name")
-    parser.add_argument("--host", '-ip', action='store',
-                        required=False, default='147.46.114.165', help="host name")
-    parser.add_argument("--port", '-p', action='store',
-                        required=False, default=22283, help="port")
-    parser.add_argument("--refresh_cycle", '-rc', action='store',
-                        required=False, default=5, help="refresh_cycle")
+    parser.add_argument("--name", '-n', action='store', type=str,
+                        required=False, default='basic_thing', help="thing name")
+    parser.add_argument("--host", '-ip', action='store', type=str,
+                        required=False, default='127.0.0.1', help="host name")
+    parser.add_argument("--port", '-p', action='store', type=int,
+                        required=False, default=1883, help="port")
+    parser.add_argument("--alive_cycle", '-ac', action='store', type=int,
+                        required=False, default=60, help="alive cycle")
+    parser.add_argument("--log", action='store_true', dest='log',
+                        required=False, default=True, help="log enable")
 
     parser.add_argument("--input", type=str, default=0,
                         help="video source. If empty, uses webcam 0 stream")
@@ -230,9 +232,7 @@ def get_object_info(target_label: str) -> bool:
         return False
 
 
-if __name__ == '__main__':
-    args = parser()
-
+def init_darknet(args):
     # darknet init
     frame_queue = Queue()
     darknet_image_queue = Queue(maxsize=1)
@@ -261,25 +261,30 @@ if __name__ == '__main__':
     Thread(target=drawing, daemon=True, args=(frame_queue,
                                               detections_queue, fps_queue)).start()
 
+
+def generate_thing(args):
     tags = [SoPTag(name='object_detector'), ]
     argments = [SoPArgument(name='target_label',
                             type='string', bound=(0, 100)), ]
 
-    get_object_info_func = SoPFunction(name='get_object_info',
-                                       func=get_object_info,
-                                       return_type='bool',
-                                       tag_list=tags,
-                                       arg_list=argments)
-    thing = SoPThing(name='ObjectDetector',
-                     value_list=[],
-                     function_list=[get_object_info_func, ],
-                     alive_cycle=10)
+    value_list = []
+    function_list = [SoPFunction(name='get_object_info',
+                                 func=get_object_info,
+                                 return_type='bool',
+                                 tag_list=tags,
+                                 arg_list=argments)]
+    thing = SoPBigThing(name=args.name, ip=args.host, port=args.port, alive_cycle=args.alive_cycle,
+                        service_list=function_list + value_list)
+    return thing
 
-    client = SoPLocalClient(thing=thing, ip=args.host, port=args.port)
 
-    # while detections_pick is None:
-    #     print('waiting for detections')
-    #     print(detections_pick)
-    #     time.sleep(0.1)
-    client.setup(avahi_enable=False)
-    client.run()
+def main():
+    args = arg_parse()
+    init_darknet(args)
+    thing = generate_thing(args)
+    thing.setup(avahi_enable=False)
+    thing.run()
+
+
+if __name__ == '__main__':
+    main()

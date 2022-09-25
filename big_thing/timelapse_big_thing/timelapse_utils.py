@@ -1,4 +1,3 @@
-#!/bin/python
 
 import time
 import os
@@ -102,21 +101,27 @@ class Timelapse():
         self.cap.set(cv2.CAP_PROP_FPS, self.fps)
 
     def make_video(self, src_path=DEFAULT_IMAGE_FOLDER, des_path=DEFAULT_VIDEO_FOLDER):
-        print(f'Make video start. [video path : {des_path}]')
-        image_list = glob(f'{src_path}/*.jpg')
-        image_list.sort()
-        size = (self.width, self.height)
+        try:
+            print(f'Make video start. [video path : {des_path}]')
+            image_list = glob(f'{src_path}/*.jpg')
+            image_list.sort()
+            size = (self.width, self.height)
 
-        make_folder(des_path)
+            make_folder(des_path)
 
-        self.vout = cv2.VideoWriter(
-            f'{des_path}/out.mp4', cv2.VideoWriter_fourcc(*'H264'), self.fps, size)
+            self.vout = cv2.VideoWriter(
+                f'{des_path}/out.mp4', cv2.VideoWriter_fourcc(*'H264'), self.fps, size)
 
-        for image in tqdm(image_list, desc='image read'):
-            frame = cv2.imread(image)
-            self.vout.write(frame)
-        self.vout.release()
-        print(f'Make video finish. [video path : {des_path}]')
+            for image in tqdm(image_list, desc='image read'):
+                frame = cv2.imread(image)
+                self.vout.write(frame)
+            self.vout.release()
+            print(f'Make video finish. [video path : {des_path}]')
+
+            return True
+        except Exception as e:
+            print_error(e)
+            return False
 
     def start_capture(self):
         if not self.run_capture:
@@ -175,110 +180,3 @@ class Timelapse():
 
     def run_thread(self):
         self.timelapse_thread.start()
-
-
-timelapse = Timelapse()
-
-
-@static_vars(flag=False, start_time=0)
-def sense_time_passed():
-    if not sense_time_passed.flag:
-        sense_time_passed.flag = True
-        sense_time_passed.start_time = time.time()
-    return time.time() - sense_time_passed.start_time
-
-
-def sense_capture_picture_num():
-    return timelapse.capture_num
-
-
-def actuate_timelapse_start():
-    timelapse.start_capture()
-
-
-def actuate_timelapse_stop():
-    timelapse.stop_capture()
-
-
-def actuate_timelapse_makevideo():
-    timelapse.make_video()
-
-
-def arg_parse():
-    parser = argparse.ArgumentParser()
-    # parser.add_argument("--log", action='store_true', dest='log',
-    #                     required=False, default=True, help="make log file")
-    parser.add_argument("--name", '-n', action='store',
-                        required=False, default='TestSuperClient', help="client name")
-    parser.add_argument("--host", '-ip', action='store',
-                        required=False, default='192.168.50.181', help="host name")
-    parser.add_argument("--port", '-p', action='store',
-                        required=False, default=1883, help="port")
-    parser.add_argument("--refresh_cycle", '-rc', action='store',
-                        required=False, default=5, help="refresh_cycle")
-    args, unknown = parser.parse_known_args()
-
-    return args
-
-
-def main():
-    timelapse.run_thread()
-    timelapse_tag = SoPTag(name='timelapse')
-
-    arg_cam = SoPArgument(name='arg_cam',
-                          type='int',
-                          bound=(0, 100))
-    arg_cycle = SoPArgument(name='arg_cycle',
-                            type='int',
-                            bound=(0, 99999999))
-    arg_w = SoPArgument(name='arg_w',
-                        type='int',
-                        bound=(0, 99999))
-    arg_h = SoPArgument(name='arg_h',
-                        type='int',
-                        bound=(0, 99999))
-
-    function_timelapse_start = SoPFunction(name='timelapse_start',
-                                           func=actuate_timelapse_start,
-                                           return_type='void',
-                                           tag_list=[timelapse_tag, ],
-                                           arg_list=[])
-    function_timelapse_stop = SoPFunction(name='timelapse_stop',
-                                          func=actuate_timelapse_stop,
-                                          return_type='void',
-                                          tag_list=[timelapse_tag, ],
-                                          arg_list=[])
-    function_timelapse_makevideo = SoPFunction(name='timelapse_makevideo',
-                                               func=actuate_timelapse_makevideo,
-                                               return_type='void',
-                                               tag_list=[timelapse_tag, ],
-                                               arg_list=[])
-    value_time_passed = SoPValue(name='time_passed',
-                                 function=sense_time_passed,
-                                 type='int',
-                                 bound=(0, 100),
-                                 tag_list=[timelapse_tag, ],
-                                 cycle=1)
-    value_capture_picture_num = SoPValue(name='capture_picture_num',
-                                         function=sense_capture_picture_num,
-                                         type='int',
-                                         bound=(0, 100),
-                                         tag_list=[timelapse_tag, ],
-                                         cycle=1)
-
-    thing = SoPThing(name='Timelapse',
-                     value_list=[value_time_passed,
-                                 value_capture_picture_num],
-                     function_list=[function_timelapse_start,
-                                    function_timelapse_stop, function_timelapse_makevideo],
-                     alive_cycle=10)
-
-    args = arg_parse()
-    client = SoPLocalClient(thing=thing, ip='147.46.216.33',
-                            port=12883)
-    client.setup(avahi_enable=True)
-    client.run()
-
-
-if __name__ == '__main__':
-    main()

@@ -108,91 +108,88 @@ def sense_VOC():
 
 def arg_parse():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--log", action='store_true', dest='log',
-                        required=False, default=True, help="enable log to file")
-    parser.add_argument("--name", '-n', action='store',
-                        required=False, default='sensor_box_thing', help="thing name")
-    parser.add_argument("--host", '-h', action='store',
+    parser.add_argument("--name", '-n', action='store', type=str,
+                        required=False, default='basic_thing', help="thing name")
+    parser.add_argument("--host", '-ip', action='store', type=str,
                         required=False, default='127.0.0.1', help="host name")
-    parser.add_argument("--port", '-p', action='store',
+    parser.add_argument("--port", '-p', action='store', type=int,
                         required=False, default=1883, help="port")
-    parser.add_argument("--refresh_cycle", '-rc', action='store',
-                        required=False, default=5, help="refresh_cycle")
-    parser.add_argument("--append_mac", '-am', action='store_true',
-                        required=False, help="append mac address to thing's name")
-    arg_list, unknown = parser.parse_known_args()
+    parser.add_argument("--alive_cycle", '-ac', action='store', type=int,
+                        required=False, default=60, help="alive cycle")
+    parser.add_argument("--log", action='store_true', dest='log',
+                        required=False, default=True, help="log enable")
+    args, unknown = parser.parse_known_args()
 
-    return arg_list
+    return args
+
+
+def generate_thing(args):
+    tags = [SoPTag(name='sensor_box'), ]
+
+    function_list = []
+    value_list = [SoPValue(name='temp',
+                  function=sense_temp,
+                  type='double',
+                  bound=(-100, 100),
+                  tag_list=tags,
+                  cycle=1),
+                  SoPValue(name='humid',
+                  function=sense_humid,
+                  type='double',
+                  bound=(0, 100),
+                  tag_list=tags,
+                  cycle=1),
+                  SoPValue(name='pressure',
+                  function=sense_pressure,
+                  type='double',
+                  bound=(0, 10000),
+                  tag_list=tags,
+                  cycle=1),
+                  SoPValue(name='CO2',
+                  function=sense_CO2,
+                  type='int',
+                  bound=(
+                      0, 10000),
+                  tag_list=tags,
+                  cycle=1),
+                  SoPValue(name='brightness',
+                  function=sense_brightness,
+                  type='int',
+                  bound=(
+                      0, 10000),
+                  tag_list=tags,
+                  cycle=1),
+                  SoPValue(name='sound',
+                  function=sense_sound,
+                  type='int',
+                  bound=(
+                      0, 10000),
+                  tag_list=tags,
+                  cycle=1),
+                  SoPValue(name='dust',
+                  function=sense_dust,
+                  type='double',
+                  bound=(
+                      0, 10000),
+                  tag_list=tags,
+                  cycle=1),
+                  SoPValue(name='VOC',
+                  function=sense_VOC,
+                  type='double',
+                  bound=(
+                      0, 10000),
+                  tag_list=tags,
+                  cycle=1)]
+
+    thing = SoPBigThing(name=args.name, ip=args.host, port=args.port, alive_cycle=args.alive_cycle,
+                        service_list=function_list + value_list)
+    return thing
 
 
 def main():
-    tags = [SoPTag(name='sensor_box'), ]
-
-    value_temp = SoPValue(name='temp',
-                          function=sense_temp,
-                          type='double',
-                          bound=(-100, 100),
-                          tag_list=tags,
-                          cycle=1)
-    value_humid = SoPValue(name='humid',
-                           function=sense_humid,
-                           type='double',
-                           bound=(0, 100),
-                           tag_list=tags,
-                           cycle=1)
-    value_pressure = SoPValue(name='pressure',
-                              function=sense_pressure,
-                              type='double',
-                              bound=(0, 10000),
-                              tag_list=tags,
-                              cycle=1)
-    value_CO2 = SoPValue(name='CO2',
-                         function=sense_CO2,
-                         type='int',
-                         bound=(0, 10000),
-                         tag_list=tags,
-                         cycle=1)
-    value_brightness = SoPValue(name='brightness',
-                                function=sense_brightness,
-                                type='int',
-                                bound=(0, 10000),
-                                tag_list=tags,
-                                cycle=1)
-    value_sound = SoPValue(name='sound',
-                           function=sense_sound,
-                           type='int',
-                           bound=(0, 10000),
-                           tag_list=tags,
-                           cycle=1)
-    value_dust = SoPValue(name='dust',
-                          function=sense_dust,
-                          type='double',
-                          bound=(0, 10000),
-                          tag_list=tags,
-                          cycle=1)
-    value_VOC = SoPValue(name='VOC',
-                         function=sense_VOC,
-                         type='double',
-                         bound=(0, 10000),
-                         tag_list=tags,
-                         cycle=1)
-
-    thing = SoPThing(name='LocalClientDummy',
-                     value_list=[value_temp,
-                                 value_humid,
-                                 value_pressure,
-                                 value_CO2,
-                                 value_brightness,
-                                 value_sound,
-                                 value_dust,
-                                 value_VOC],
-                     function_list=[],
-                     alive_cycle=10)
-
-    args = arg_parse()
-    client = SoPBigThing(thing=args.name, ip=args.host, port=args.port)
-    client.setup(avahi_enable=True)
-    client.run()
+    thing = generate_thing(arg_parse())
+    thing.setup(avahi_enable=False)
+    thing.run()
 
 
 if __name__ == '__main__':

@@ -1,7 +1,18 @@
-from hue_manager_thing import *
-from hue_staff_thing import *
+from smartthings_manager_thing import *
 
 import argparse
+
+
+def generate_thing(args):
+    thing = SoPSmartThingsManagerThing(name=args.name, ip=args.host, port=args.port,
+                                       bridge_ip=args.bridge_host, bridge_port=args.bridge_host,
+                                       user_key=args.user_key, mode=SoPManagerMode.get(
+                                           args.mode),
+                                       scan_cycle=args.scan_cycle,
+                                       alive_cycle=args.alive_cycle,
+                                       conf_file_path='smartthings_conf.json',
+                                       append_mac_address=args.append_mac)
+    return thing
 
 
 def arg_parse():
@@ -18,11 +29,11 @@ def arg_parse():
                         required=False, default=True, help="log enable")
 
     parser.add_argument("--bridge_host", '-bip', action='store', type=str,
-                        required=False, default='http://147.46.114.165/api/', help="bridge ip")
+                        required=False, default='https://api.smartthings.com/v1/', help="bridge ip")
     parser.add_argument("--bridge_port", '-bp', action='store', type=int,
                         required=False, default=80, help="bridge port")
     parser.add_argument("--user_key", '-k', action='store', type=str,
-                        required=False, default='L-idzo6XFfRVA-DzXyA66xKzi-KxIJA75neakYyS', help="user_key")
+                        required=False, default='c3c3f326-df2a-4eb5-a03b-abe1ec874986', help="user_key")
     parser.add_argument("--scan_cycle", '-sc', action='store', type=int,
                         required=False, default=60, help="scan_cycle")
     parser.add_argument("--mode", '-md', action='store', type=str,
@@ -30,15 +41,6 @@ def arg_parse():
     arg_list, unknown = parser.parse_known_args()
 
     return arg_list
-
-
-def generate_thing(args):
-    client = SoPHueManagerThing(name=args.name, ip=args.host, port=args.port,
-                                bridge_ip=args.bridge_host, bridge_port=args.bridge_port,
-                                user_key=args.user_key, mode=args.mode,
-                                scan_cycle=args.scan_cycle, conf_file_path='hue_room_conf.json')
-    client.setup(avahi_enable=False)
-    client.run()
 
 
 def main():

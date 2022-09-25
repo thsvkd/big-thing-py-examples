@@ -53,7 +53,7 @@ class SoPHueStaffThing(SoPStaffThing):
         else:
             return False
 
-    def set_color(self, r, g, b) -> bool:
+    def set_color(self, r: int, g: int, b: int) -> bool:
         SOPLOG_DEBUG('set_color actuate!!!', 'green')
         x, y = rgb_to_xy(float(r), float(g), float(b))
         res: requests.Response = API_request(

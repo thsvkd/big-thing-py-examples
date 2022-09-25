@@ -1,24 +1,14 @@
 from big_thing_py.manager_thing import *
+from smartthings_staff_thing import *
+from smartthings_utils import *
 
 
-class SoPSmartThingsManagerClient(SoPManagerThing):
-
-    class SmartThingsStaffThing(SoPThing):
-        def __init__(self, name=None, value_list: List[SoPValue] = [], function_list: List[SoPFunction] = [], alive_cycle=10, is_super=False, device_id=None):
-            super().__init__(name=name, value_list=value_list,
-                             function_list=function_list, alive_cycle=alive_cycle, is_super=is_super)
-            self.device_id = device_id
-
-        def get_device_id(self):
-            return self.device_id
-
-        def set_device_id(self, device_id):
-            self.device_id = device_id
+class SoPSmartThingsManagerThing(SoPManagerThing):
 
     def __init__(self, ip='127.0.0.1', port=1883, bridge_ip='', bridge_port=80, user_key='', refresh_cycle=10, network=..., ssl_enable=False, ssl_ca_path: str = f'{get_project_root()}/CA/'):
         super().__init__(ip=ip, port=port, bridge_ip=bridge_ip, bridge_port=bridge_port,
-                         user_key=user_key, scan_cycle=refresh_cycle, network=Network.API, ssl_enable=ssl_enable, ssl_ca_path=ssl_ca_path)
-        self._thing_list: List[SoPSmartThingsManagerClient.SmartThingsStaffThing] = [
+                         user_key=user_key, scan_cycle=refresh_cycle, ssl_enable=ssl_enable, ssl_ca_path=ssl_ca_path)
+        self._thing_list: List[SmartThingsStaffThing] = [
         ]
         self._bridge_ip = bridge_ip
         self._bridge_port = bridge_port
@@ -78,7 +68,7 @@ class SoPSmartThingsManagerClient(SoPManagerThing):
             staff_value.add_tag(SoPTag(name))
             staff_value.add_tag(SoPTag(deviceId.replace('-', '_')))
 
-        staff_thing = SoPSmartThingsManagerClient.SmartThingsStaffThing(
+        staff_thing = SmartThingsStaffThing(
             name=label + '_' + deviceId.replace('-', '_'), value_list=staff_value_list, function_list=staff_function_list, alive_cycle=10, device_id=deviceId)
         return staff_thing
 
@@ -213,34 +203,3 @@ class SoPSmartThingsManagerClient(SoPManagerThing):
             SOPLOG_DEBUG(
                 f'[FUNC ERROR] API_request!!!', 'red')
             return False
-
-
-def arg_parse():
-    parser = argparse.ArgumentParser()
-    # parser.add_argument("--log", action='store_true', dest='log',
-    #                     required=False, default=True, help="make log file")
-    parser.add_argument("--name", '-n', action='store',
-                        required=False, default='TestSuperClient', help="client name")
-    parser.add_argument("--host", '-ip', action='store',
-                        required=False, default='192.168.50.181', help="host name")
-    parser.add_argument("--port", '-p', action='store',
-                        required=False, default=1883, help="port")
-    parser.add_argument("--refresh_cycle", '-rc', action='store',
-                        required=False, default=5, help="refresh_cycle")
-    args, unknown = parser.parse_known_args()
-
-    return args
-
-
-def main():
-    args = arg_parse()
-    client = SoPSmartThingsManagerClient(ip='147.46.216.33', port=12883,
-                                         bridge_ip='https://api.smartthings.com/v1/', bridge_port=80,
-                                         user_key='c3c3f326-df2a-4eb5-a03b-abe1ec874986',
-                                         refresh_cycle=5)
-    client.setup(avahi_enable=True)
-    client.run()
-
-
-if __name__ == '__main__':
-    main()
