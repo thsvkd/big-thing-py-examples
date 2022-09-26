@@ -2,9 +2,32 @@
 
 필립스 휴 써드파티 디바이스를 통제할 수 있는 Thing 예제
 
+# 사전 준비
+
+## 휴 브릿지 준비
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d2d7085c-9ebb-4ce5-8dc5-a6ddd5aeb91e/Untitled.png)
+
+필립스 휴 시스템을 구축하기 위해서는 Hue Bridge가 필요합니다. 
+
+1. [링크](https://ko.manuals.plus/philips/929001180603-hue-smart-bridge-manual)를통해 필립스 휴 브릿지를 온라인 상태로 셋팅합니다. 
+2. 휴 앱으로 휴 디바이스를 휴 브릿지에 연결합니다. 
+3. [링크](https://developers.meethue.com/develop/get-started-2/)에서 개발자 등록
+4. `http://{브릿지_ip}/debug/clip.html` 로 접속하여 **CLIP API Debugger**를 띄운다
+5. 휴 브릿지 버튼을 누른 후 다음의 셋팅으로 사용자 API 키를 받아온다.
+    
+    **URL**: `api/`
+    
+    **body**: `{"devicetype":"my_hue_app#iphone peter"}`
+    
+    **Method**: `POST`
+    
+6. [Hue API 문서](https://developers.meethue.com/develop/hue-api-v2/api-reference/)를 참고 하여 커스텀 Hue Manager Thing을 제작한다. **(*Advanced*)**
+
 # 실행
 
 ```bash
+cd manager_thing/hue_manager_thing
 python run.py [options]
 ```
 

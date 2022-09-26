@@ -5,6 +5,7 @@
 # 실행
 
 ```bash
+cd big_thing/camera_speaker_big_thing
 python run.py [options]
 ```
 

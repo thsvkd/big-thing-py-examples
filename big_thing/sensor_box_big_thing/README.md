@@ -5,6 +5,7 @@
 # 실행
 
 ```bash
+cd big_thing/sensor_box_big_thing
 python run.py [options]
 ```
 

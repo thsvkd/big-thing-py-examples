@@ -12,6 +12,7 @@ chmod +x preinstall.sh
 # 실행
 
 ```bash
+cd big_thing/human_detector_big_thing
 python run.py [options]
 ```
 

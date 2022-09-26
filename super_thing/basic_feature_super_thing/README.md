@@ -1,10 +1,12 @@
 # 설명
 
-SoPIoT 시스템에서 Super Thing의 기본적인 기능을 테스트 해볼 수 있는 예제
+SoPIoT 시스템에서 Super Thing의 기본적인 기능을 테스트 해볼 수 있는 예제 
+([기본 Thing](https://www.notion.so/Thing-3211d2394d72472bab238b0b004ee6bc)과 같이 작동)
 
 # 실행
 
 ```bash
+cd super_thing/basic_feature_super_thing
 python run.py [options]
 ```
 

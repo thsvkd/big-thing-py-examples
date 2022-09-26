@@ -1,10 +1,11 @@
 # 설명
 
-Thing의 기본적인 기능을 테스트 해볼 수 있는 예제
+카메라 캡쳐, TTS 음성 발화기능을 제공하는 Thing 예제
 
 # 실행
 
 ```bash
+cd big_thing/camera_speaker_big_thing
 python run.py [options]
 ```
 
@@ -35,21 +36,15 @@ python run.py [options]
 
 ## Function Services
 
-- `func_no_arg(None) -> int`
+- `speaker_speak(text: str) -> bool`
     
-    기본적인 형태의 파라미터가 없는 서비스. 0~100 중에서 랜덤한 숫자를 골라 반환한다.
+    text를 입력으로 받아 음성파일로 변환한 다음 방화하는 서비스. 성공하는 경우 True를 반환한다. 
     
-- `func_with_arg(int_arg: int) -> int`
+- `camera_capture(file_name: str) -> bool`
     
-    기본적인 형태의 파라미터가 있는 서비스. 정수형 인자를 받아 그대로 반환한다.
-    
-- `func_with_arg_and_delay(int_arg: int, delay: float) -> int`
-    
-    기본적인 형태의 파라미터를 받아 인자의 숫자 만큼 sleep하는 서비스. 정수형 인자를 받아 그대로 반환한다
+    카메라로 영상을 캡쳐하여 file_name의 이름으로 저장하는 서비스. 성공하는 경우 True를 반환한다. 
     
 
 ## Value Services
 
-- `value_current_time -> int`
-    
-    현재 시간을 알려주는 서비스. 현재 unix 시간을 반환한다.
+- (없음)

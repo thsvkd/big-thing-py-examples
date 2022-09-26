@@ -2,9 +2,28 @@
 
 헤이홈 써드파티 디바이스를 통제할 수 있는 Thing 예제
 
+# 사전 준비
+
+## 헤이홈 스마트 허브 Air 준비
+
+![a4fa1b48aaab8.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/81dea08f-b965-45c3-932a-d72294849763/a4fa1b48aaab8.jpg)
+
+<aside>
+💡 헤이홈 디바이스는 **Wi-Fi를 사용하는 디바이스**와 **Zigbee를 이용하는 디바이스** 2가지 종류가 있습니다.
+
+Wi-Fi 제품의 경우 Wi-Fi 공유기만 갖추면 되지만 Zigbee 제품의 경우 **헤이홈 스마트 허브**가 필요합니다. 
+
+</aside>
+
+1. 헤이홈 앱에서 자동스캔 기능을 이용하여 디바이스를 검색합니다. 
+2. 검색된 디바이스를 앱의 지시에 따라 등록 완료합니다. 
+3. 조교에 문의하여 헤이홈 API 키를 받습니다. 
+4. [고퀄 API 문서](https://documenter.getpostman.com/view/7113846/SW14WHx6)를 참고 하여 커스텀 Hejhome Manager Thing을 제작한다. **(*Advanced*)**
+
 # 실행
 
 ```bash
+cd manager_thing/hejhome_manager_thing
 python run.py [options]
 ```
 
@@ -42,18 +61,6 @@ python run.py [options]
     
     Hejhome 디바이스 스캔 주기
     
-- `-md --mode | default=SoPManagerMode.SPLIT.value`
-    
-    Manager Thing 모드.
-    
-    1. `SoPManagerMode.SPLIT`
-        
-        Hejhome 디바이스가 별개의 Thing으로써 동작
-        
-    2. `SoPManagerMode.JOIN`
-        
-        Hejhome 디바이스가 한 개의 Thing으로 묶여서 동작
-        
 
 # Services
 
