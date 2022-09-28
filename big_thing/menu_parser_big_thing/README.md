@@ -1,18 +1,18 @@
-# 예제 설명
+# 설명
 
-사람을 감지하는 서비스를 제공하는 Thing 예제. 
+서울대 학식 메뉴 알리미 서비스를 제공하는 Thing 예제
 
-# prerequirement
+# 의존성
 
-```
-chmod +x preinstall.sh
-./preinstall.sh
+```bash
+npm install request cheerio fs 
 ```
 
 # 실행
 
 ```bash
-cd big_thing/human_detector_big_thing
+cd big_thing/clock_big_thing
+./preinstall.sh
 python run.py [options]
 ```
 
@@ -20,7 +20,7 @@ python run.py [options]
 
 - `-n, --name | default = None`
     
-    Thing의 이름. 이 이름은 Thing을 구분하기위한 ID이기도 하다 
+    Thing의 이름. 이 이름은 Thing을 구분하기 위한 ID이기도 하다 
     
 - `-ip --host | default='127.0.0.1'`
     
@@ -47,10 +47,15 @@ python run.py [options]
 
 ## Function Services
 
-- (없음)
+- `lunch_menu(None) -> str`
+    
+    점심 메뉴를 제공하는 서비스
+    
+- `dinner_menu(None) -> str`
+    
+    저녁 메뉴를 제공하는 서비스
+    
 
 ## Value Services
 
-- `human_num -> int`
-    
-    현재 카메라에 잡힌 사람의 수를 제공하는 서비스
+- (없음)

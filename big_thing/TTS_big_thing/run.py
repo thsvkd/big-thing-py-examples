@@ -2,29 +2,41 @@
 
 from big_thing_py.big_thing import *
 
+from email.mime.text import MIMEText
+import datetime
 import argparse
+import smtplib
+import ssl
 import os
 
-import picamera
-from gtts import gTTS
-from textblob import TextBlob
 
-camera = picamera.PiCamera()
+def pkg_install(package):
+    import pip
+
+    if hasattr(pip, 'main'):
+        pip.main(['install', package])
+    else:
+        pip._internal.main(['install', package])
 
 
-def speaker_speak(text: str) -> bool:
-    lang = TextBlob(text).detect_language()
+try:
+    from gtts import gTTS
+    from langdetect import detect
+except ImportError as e:
+    pkg_install('gtts')
+    pkg_install('langdetect')
+    from gtts import gTTS
+    from langdetect import detect
+
+
+def speak(text: str) -> bool:
+    lang = detect(text)
     SOPLOG_DEBUG(f'lang detected: {lang}')
 
     myobj = gTTS(text=text, lang=lang, slow=False)
     myobj.save("welcome.mp3")
     os.system("mpg321 welcome.mp3")
 
-    return True
-
-
-def camera_capture(file_name: str) -> bool:
-    result = camera.capture(file_name)
     return True
 
 
@@ -38,26 +50,23 @@ def arg_parse():
                         required=False, default=1883, help="port")
     parser.add_argument("--alive_cycle", '-ac', action='store', type=int,
                         required=False, default=60, help="alive cycle")
-    parser.add_argument("--log", action='store_true', dest='log',
-                        required=False, default=True, help="log enable")
+    parser.add_argument("--auto_scan", '-as', action='store_true',
+                        required=False, help="middleware auto scan enable")
+    parser.add_argument("--log", action='store_true',
+                        required=False, help="log enable")
     args, unknown = parser.parse_known_args()
 
     return args
 
 
 def generate_thing(args):
-    tag_list = [SoPTag(name='camera'),
-                SoPTag(name='speaker')]
-    function_list = [SoPFunction(func=speaker_speak,
-                                 return_type='bool',
+    tag_list = [SoPTag(name='speaker'),
+                SoPTag(name='TTS'),
+                SoPTag(name='tts'), ]
+    function_list = [SoPFunction(func=speak,
+                                 return_type=SoPType.BOOL,
                                  tag_list=tag_list,
                                  arg_list=[SoPArgument(name='function_speak_arg',
-                                                       type=SoPType.STRING,
-                                                       bound=(0, 10000))]),
-                     SoPFunction(func=camera_capture,
-                                 return_type='bool',
-                                 tag_list=tag_list,
-                                 arg_list=[SoPArgument(name='function_camera_arg',
                                                        type=SoPType.STRING,
                                                        bound=(0, 10000))])]
     value_list = []
@@ -68,8 +77,7 @@ def generate_thing(args):
 
 
 if __name__ == '__main__':
-    camera.resolution = (2592, 1944)
-
-    thing = generate_thing(arg_parse())
-    thing.setup(avahi_enable=True)
+    args = arg_parse()
+    thing = generate_thing(args)
+    thing.setup(avahi_enable=args.auto_scan)
     thing.run()

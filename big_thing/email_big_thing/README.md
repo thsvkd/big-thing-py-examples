@@ -1,18 +1,27 @@
-# 예제 설명
+# 설명
 
-사람을 감지하는 서비스를 제공하는 Thing 예제. 
+이메일 전송 기능을 제공하는 Thing 예제
 
-# prerequirement
+# 의존성
 
+```bash
+pip install smtplib email
 ```
-chmod +x preinstall.sh
-./preinstall.sh
-```
+
+# 사전 준비
+
+- 이메일 비밀번호 입력
+    
+    ```bash
+    vi big_thing/email_big_thing/secret.py # 자신의 이메일 비밀번호를 기입
+    ```
+    
 
 # 실행
 
 ```bash
-cd big_thing/human_detector_big_thing
+cd big_thing/email_big_thing
+pip install -r requirements.txt
 python run.py [options]
 ```
 
@@ -20,7 +29,7 @@ python run.py [options]
 
 - `-n, --name | default = None`
     
-    Thing의 이름. 이 이름은 Thing을 구분하기위한 ID이기도 하다 
+    Thing의 이름. 이 이름은 Thing을 구분하기 위한 ID이기도 하다 
     
 - `-ip --host | default='127.0.0.1'`
     
@@ -47,10 +56,11 @@ python run.py [options]
 
 ## Function Services
 
-- (없음)
+- `email(address:str, text: str) -> bool`
+    
+    `text`를 입력으로 받아 `address` 의 이메일로 이메일을 전송한다. 
+    
 
 ## Value Services
 
-- `human_num -> int`
-    
-    현재 카메라에 잡힌 사람의 수를 제공하는 서비스
+- (없음)

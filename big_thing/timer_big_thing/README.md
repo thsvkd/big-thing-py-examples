@@ -1,11 +1,12 @@
 # 설명
 
-카메라 캡쳐, TTS 음성 발화기능을 제공하는 Thing 예제
+타이머 서비스를 제공하는 Thing 예제
 
 # 실행
 
 ```bash
-cd big_thing/camera_speaker_big_thing
+cd big_thing/timer_big_thing
+pip install -r requirements.txt
 python run.py [options]
 ```
 
@@ -27,6 +28,10 @@ python run.py [options]
     
     Thing의 alive 패킷 전송 주기. alive 패킷을 통해 Middleware가 Thing의 활성화 여부를 파악한다. 
     
+- `-as, --auto_scan | default=True`
+    
+    Middleware 자동스캔 기능 활성화 여부.
+    
 - `--log | default=True`
     
     Thing의 log기능의 활성화 여부. 
@@ -36,15 +41,17 @@ python run.py [options]
 
 ## Function Services
 
-- `speaker_speak(text: str) -> bool`
+- `timer_set -> float`
     
-    text를 입력으로 받아 음성파일로 변환한 다음 방화하는 서비스. 성공하는 경우 True를 반환한다. 
+    타이머를 초기화하는 서비스
     
-- `camera_capture(file_name: str) -> bool`
+- `timer_start -> bool`
     
-    카메라로 영상을 캡쳐하여 file_name의 이름으로 저장하는 서비스. 성공하는 경우 True를 반환한다. 
+    타이머를 시작하는 서비스
     
 
 ## Value Services
 
-- (없음)
+- `is_timer_set -> bool`
+    
+    타이머가 끝났는지 여부를 제공하는 서비스

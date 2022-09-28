@@ -25,6 +25,8 @@ def arg_parse():
                         required=False, default=1883, help="port")
     parser.add_argument("--alive_cycle", '-ac', action='store', type=int,
                         required=False, default=60, help="alive cycle")
+    parser.add_argument("--auto_scan", '-as', action='store_true',
+                        required=False, help="middleware auto scan enable")
     parser.add_argument("--log", action='store_true', dest='log',
                         required=False, default=True, help="log enable")
 

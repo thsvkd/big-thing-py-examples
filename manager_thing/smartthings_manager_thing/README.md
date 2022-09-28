@@ -43,6 +43,10 @@ python run.py [options]
     
     Thing의 alive 패킷 전송 주기. alive 패킷을 통해 Middleware가 Thing의 활성화 여부를 파악한다. 
     
+- `-as, --auto_scan | default=True`
+    
+    Middleware 자동스캔 기능 활성화 여부.
+    
 - `-bip, --bridge_host | default='https://api.smartthings.com/v1/'`
     
     SmartThings 클라우드 브릿지 ip 주소

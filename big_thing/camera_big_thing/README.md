@@ -1,18 +1,20 @@
-# 예제 설명
+# 설명
 
-사람을 감지하는 서비스를 제공하는 Thing 예제. 
+카메라 캡쳐기능을 제공하는 Thing 예제
 
-# prerequirement
+# 의존성
 
-```
-chmod +x preinstall.sh
-./preinstall.sh
+```bash
+pip install picamera
+sudo raspi-config # Interface Options -> Legacy Camera -> Yes -> Ok -> Esc(quit)
+sudo reboot
 ```
 
 # 실행
 
 ```bash
-cd big_thing/human_detector_big_thing
+cd big_thing/camera_big_thing
+pip install -r requirements.txt
 python run.py [options]
 ```
 
@@ -20,7 +22,7 @@ python run.py [options]
 
 - `-n, --name | default = None`
     
-    Thing의 이름. 이 이름은 Thing을 구분하기위한 ID이기도 하다 
+    Thing의 이름. 이 이름은 Thing을 구분하기 위한 ID이기도 하다 
     
 - `-ip --host | default='127.0.0.1'`
     
@@ -47,10 +49,11 @@ python run.py [options]
 
 ## Function Services
 
-- (없음)
+- `capture(file_name: str) -> bool`
+    
+    카메라로 영상을 캡쳐하여 file_name의 이름으로 저장하는 서비스. 성공하는 경우 True를 반환한다. 
+    
 
 ## Value Services
 
-- `human_num -> int`
-    
-    현재 카메라에 잡힌 사람의 수를 제공하는 서비스
+- (없음)
