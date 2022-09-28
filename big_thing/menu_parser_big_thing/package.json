@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "fs": "^0.0.1-security",
-    "my-dependency": "^1.0.1",
-    "request": "^2.88.2"
-  }
-}

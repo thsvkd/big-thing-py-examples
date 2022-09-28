@@ -3,19 +3,78 @@
 from big_thing_py.big_thing import *
 
 import argparse
-import os
+import re
+from bs4 import BeautifulSoup
+
+
+def get_menu(url):
+    response = requests.get(url)
+    today_whole_menu = {}
+    tomorrow_whole_menu = {}
+
+    if response.status_code == 200:
+        html = response.text
+        soup = BeautifulSoup(html, 'html.parser')
+        today_menu_list = soup.select_one(
+            '#main > table:nth-child(2)').select('tr')
+        tomorrow_menu_list = soup.select_one(
+            '#main > table:nth-child(5)').select('tr')
+
+        key = None
+        for menu in today_menu_list:
+            if menu.has_attr('height'):
+                key = menu.text
+                today_whole_menu[key] = []
+            else:
+                today_whole_menu[key].append((menu.text.split()[0], re.sub(
+                    '\d', ' ', ''.join(menu.text.split()[1:])).split()))
+
+        key = None
+        for menu in tomorrow_menu_list:
+            if menu.has_attr('height'):
+                key = menu.text
+                tomorrow_whole_menu[key] = []
+            else:
+                tomorrow_whole_menu[key].append((menu.text.split()[0], re.sub(
+                    '\d', ' ', ''.join(menu.text.split()[1:])).split()))
+
+    return today_whole_menu, tomorrow_whole_menu
 
 
 def dinner_menu():
-    os.system(f'node parse.js 0')
-    with open('menu.txt', 'r') as f:
-        return ''.join(f.readlines())
+    today_whole_menu, tomorrow_whole_menu = get_menu(
+        'https://mini.snu.kr/cafe/')
+    text = '\n'
+
+    if today_whole_menu.get('저녁', None) == None:
+        return '너무 늦어서 저녁 메뉴가 없어요...'
+    else:
+        dinner_menu = today_whole_menu.get('저녁', None)
+        for menu in dinner_menu:
+            tmp = "\n".join(menu[1])
+            text += f'=== {menu[0]} ===\n{tmp}'
+
+    return text
 
 
 def lunch_menu():
-    os.system(f'node parse.js 1')
-    with open('menu.txt', 'r') as f:
-        return ''.join(f.readlines())
+    today_whole_menu, tomorrow_whole_menu = get_menu(
+        'https://mini.snu.kr/cafe/')
+    text = '\n'
+
+    if today_whole_menu.get('점심', None) == None:
+        return '너무 늦어서 점심 메뉴가 없어요...'
+    else:
+        lunch_menu = today_whole_menu.get('점심', None)
+        for menu in lunch_menu:
+            tmp = "\n".join(menu[1])
+            text += f'=== {menu[0]} ===\n{tmp}'
+
+    return text
+
+
+def breakfast_menu():
+    pass
 
 
 def arg_parse():
@@ -55,6 +114,7 @@ def generate_thing(args):
 
 
 if __name__ == '__main__':
+
     args = arg_parse()
     thing = generate_thing(args)
     thing.setup(avahi_enable=args.auto_scan)
