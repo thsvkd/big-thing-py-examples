@@ -5,6 +5,7 @@
 # 의존성
 
 ```bash
+pip install -r requirements.txt
 sudo raspi-config # Interface Options -> Legacy Camera -> Yes -> Ok -> Esc(quit)
 sudo reboot
 ```
@@ -13,7 +14,6 @@ sudo reboot
 
 ```bash
 cd big_thing/camera_big_thing
-pip install -r requirements.txt
 python run.py [options]
 ```
 
@@ -48,9 +48,9 @@ python run.py [options]
 
 ## Function Services
 
-- `capture(file_name: str) -> bool`
+- `capture(file_name: str) -> str`
     
-    카메라로 영상을 캡쳐하여 file_name의 이름으로 저장하는 서비스. 성공하는 경우 True를 반환한다. 
+    카메라로 영상을 캡쳐하여 file_name의 이름으로 저장하는 서비스. 성공하는 경우 이미지가 저장된 절대 경로를 반환한다. 
     
 
 ## Value Services

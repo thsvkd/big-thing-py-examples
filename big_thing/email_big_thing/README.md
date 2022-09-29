@@ -2,12 +2,6 @@
 
 이메일 전송 기능을 제공하는 Thing 예제
 
-# 의존성
-
-```bash
-pip install -r requirements.txt
-```
-
 # 사전 준비
 
 <aside>

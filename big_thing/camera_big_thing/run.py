@@ -10,9 +10,9 @@ camera = picamera.PiCamera()
 camera.resolution = (2592, 1944)
 
 
-def capture(file_name: str) -> bool:
+def capture(file_name: str) -> str:
     result = camera.capture(file_name)
-    return True
+    return os.path.abspath(file_name)
 
 
 def arg_parse():
@@ -37,7 +37,7 @@ def arg_parse():
 def generate_thing(args):
     tag_list = [SoPTag(name='camera')]
     function_list = [SoPFunction(func=capture,
-                                 return_type=SoPType.BOOL,
+                                 return_type=SoPType.STRING,
                                  tag_list=tag_list,
                                  arg_list=[SoPArgument(name='function_camera_arg',
                                                        type=SoPType.STRING,
