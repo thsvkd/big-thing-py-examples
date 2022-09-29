@@ -6,14 +6,13 @@ TTS 음성 발화기능을 제공하는 Thing 예제
 
 ```bash
 sudo apt install mpg321
-pip install gtts textblob
+pip install -r requirements.txt
 ```
 
 # 실행
 
 ```bash
 cd big_thing/TTS_big_thing
-pip install -r requirements.txt
 python run.py [options]
 ```
 

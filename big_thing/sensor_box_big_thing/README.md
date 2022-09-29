@@ -2,6 +2,12 @@
 
 여러가지 센서들의 값을 제공하는 Thing 예제. adafruit사의 tsl2591, bme280, sgp30 모듈등이 필요하다.
 
+# 의존성
+
+```python
+pip install -r requirements.txt
+```
+
 # 실행
 
 ```bash

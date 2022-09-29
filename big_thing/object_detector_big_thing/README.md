@@ -2,7 +2,7 @@
 
 물체를 감지하는 서비스를 제공하는 Thing 예제
 
-# prerequirement
+# 의존성
 
 ```
 chmod +x preinstall.sh

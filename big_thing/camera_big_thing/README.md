@@ -5,7 +5,6 @@
 # 의존성
 
 ```bash
-pip install picamera
 sudo raspi-config # Interface Options -> Legacy Camera -> Yes -> Ok -> Esc(quit)
 sudo reboot
 ```

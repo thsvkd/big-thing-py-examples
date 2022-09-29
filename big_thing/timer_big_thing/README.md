@@ -6,7 +6,6 @@
 
 ```bash
 cd big_thing/timer_big_thing
-pip install -r requirements.txt
 python run.py [options]
 ```
 
@@ -54,4 +53,4 @@ python run.py [options]
 
 - `is_timer_set -> bool`
     
-    타이머가 끝났는지 여부를 제공하는 서비스
+    타이머가 끝났는지 여부를 제공하는 서비스. `wait until()` 구문 안에 넣어서 사용한다.

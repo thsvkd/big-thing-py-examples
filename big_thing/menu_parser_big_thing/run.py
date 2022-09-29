@@ -3,6 +3,7 @@
 from big_thing_py.big_thing import *
 
 import argparse
+import requests
 import re
 from bs4 import BeautifulSoup
 
@@ -22,21 +23,27 @@ def get_menu(url):
 
         key = None
         for menu in today_menu_list:
-            if menu.has_attr('height'):
-                key = menu.text
-                today_whole_menu[key] = []
-            else:
-                today_whole_menu[key].append((menu.text.split()[0], re.sub(
-                    '\d', ' ', ''.join(menu.text.split()[1:])).split()))
+            try:
+                if menu.has_attr('height'):
+                    key = menu.text
+                    today_whole_menu[key] = []
+                else:
+                    today_whole_menu[key].append((menu.text.split()[0], re.sub(
+                        '\d', ' ', ''.join(menu.text.split()[1:])).split()))
+            except KeyError:
+                pass
 
         key = None
         for menu in tomorrow_menu_list:
-            if menu.has_attr('height'):
-                key = menu.text
-                tomorrow_whole_menu[key] = []
-            else:
-                tomorrow_whole_menu[key].append((menu.text.split()[0], re.sub(
-                    '\d', ' ', ''.join(menu.text.split()[1:])).split()))
+            try:
+                if menu.has_attr('height'):
+                    key = menu.text
+                    tomorrow_whole_menu[key] = []
+                else:
+                    tomorrow_whole_menu[key].append((menu.text.split()[0], re.sub(
+                        '\d', ' ', ''.join(menu.text.split()[1:])).split()))
+            except KeyError:
+                pass
 
     return today_whole_menu, tomorrow_whole_menu
 

@@ -2,6 +2,12 @@
 
 일정시간마다 사진을 찍어 타임랩스 동영상을 만들 수 있는 Thing 예제
 
+# 의존성
+
+```bash
+pip install -r requirements.txt
+```
+
 # 실행
 
 ```bash

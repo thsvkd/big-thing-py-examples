@@ -5,14 +5,13 @@
 # 의존성
 
 ```bash
-npm install request cheerio fs 
+pip install -r requirements.txt
 ```
 
 # 실행
 
 ```bash
 cd big_thing/clock_big_thing
-./preinstall.sh
 python run.py [options]
 ```
 

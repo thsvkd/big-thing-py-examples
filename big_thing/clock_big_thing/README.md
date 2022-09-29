@@ -5,14 +5,13 @@
 # 의존성
 
 ```bash
-pip install datetime
+pip install -r requirements.txt
 ```
 
 # 실행
 
 ```bash
 cd big_thing/clock_big_thing
-pip install -r requirements.txt
 python run.py [options]
 ```
 

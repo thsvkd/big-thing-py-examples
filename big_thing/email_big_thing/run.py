@@ -8,23 +8,21 @@ import datetime
 import argparse
 import smtplib
 import ssl
-from secret import *
+from secret import SENDER_EMAIL
+from secret import EMAIL_PASSWORD_GMAIL, EMAIL_PASSWORD_NAVER, EMAIL_PASSWORD_LIVE
 
 
-def send(address: str = None, text: str = None) -> bool:
+def send(receive_address: str = None, title: str = 'TEST EMAIL', text: str = None) -> bool:
     SMTP_SSL_PORT = 465  # SSL connection
+    RECEIVER_EMAIL = receive_address
 
-    SENDER_EMAIL = address
-
-    RECEIVER_EMAIL = SENDER_EMAIL
-
-    if 'gmail' in address:
+    if 'gmail' in SENDER_EMAIL:
         SMTP_SERVER = "smtp.gmail.com"
         SENDER_PASSWORD = EMAIL_PASSWORD_GMAIL
-    elif 'naver' in address:
+    elif 'naver' in SENDER_EMAIL:
         SMTP_SERVER = "smtp.naver.com"
         SENDER_PASSWORD = EMAIL_PASSWORD_NAVER
-    elif 'live' in address:
+    elif 'live' in SENDER_EMAIL:
         SMTP_SERVER = "smtp.live.com"
         SENDER_PASSWORD = EMAIL_PASSWORD_LIVE
 
@@ -35,7 +33,7 @@ def send(address: str = None, text: str = None) -> bool:
         msg = MIMEText(
             f'{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")} \n{text}')
         msg['From'] = SENDER_EMAIL
-        msg['Subject'] = 'TEST'
+        msg['Subject'] = title
         msg['To'] = RECEIVER_EMAIL
         result = server.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, msg.as_string())
 
@@ -70,6 +68,9 @@ def generate_thing(args):
                                  return_type=SoPType.BOOL,
                                  tag_list=tag_list,
                                  arg_list=[SoPArgument(name='address',
+                                                       type=SoPType.STRING,
+                                                       bound=(0, 10000)),
+                                           SoPArgument(name='title',
                                                        type=SoPType.STRING,
                                                        bound=(0, 10000)),
                                            SoPArgument(name='text',
