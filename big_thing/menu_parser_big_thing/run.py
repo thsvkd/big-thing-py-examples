@@ -104,7 +104,8 @@ def arg_parse():
 
 
 def generate_thing(args):
-    tag_list = [SoPTag(name='menu')]
+    tag_list = [SoPTag(name='menu'),
+                SoPTag(name='crawler')]
     function_list = [SoPFunction(func=lunch_menu,
                                  return_type=SoPType.STRING,
                                  tag_list=tag_list,
