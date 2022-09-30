@@ -5,7 +5,6 @@ TTS 음성 발화기능을 제공하는 Thing 예제
 # 의존성
 
 ```bash
-sudo apt install mpg321
 pip install -r requirements.txt
 ```
 

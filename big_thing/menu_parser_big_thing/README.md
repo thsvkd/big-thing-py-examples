@@ -11,7 +11,7 @@ pip install -r requirements.txt
 # 실행
 
 ```bash
-cd big_thing/clock_big_thing
+cd big_thing/menu_parser_big_thing
 python run.py [options]
 ```
 
@@ -46,13 +46,18 @@ python run.py [options]
 
 ## Function Services
 
-- `lunch_menu(None) -> str`
+- `menu(command: str) -> str`
     
-    점심 메뉴를 제공하는 서비스
+    서울대 학식 메뉴 정보를 제공하는 서비스. command는 다음과 같이 작성할 수 있습니다. 
     
-- `dinner_menu(None) -> str`
+    ```bash
+    오늘 301동 점심
+    오늘 자하연 저녁
+    내일 기숙사식당 아침
     
-    저녁 메뉴를 제공하는 서비스
+    format:
+    [오늘|내일] [학생식당|수의대식당|전망대(3식당)|예술계식당(아름드리)|기숙사식당|아워홈|동원관식당(113동)|웰스토리(220동)|투굿(공대간이식당)|자하연식당|301동식당] [아침|점심|저녁]
+    ```
     
 
 ## Value Services
