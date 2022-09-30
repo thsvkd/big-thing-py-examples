@@ -2,12 +2,9 @@
 
 from big_thing_py.big_thing import *
 
-from email.mime.text import MIMEText
-import datetime
 import argparse
-import smtplib
-import ssl
 import os
+import playsound
 
 
 def pkg_install(package):
@@ -22,11 +19,14 @@ def pkg_install(package):
 try:
     from gtts import gTTS
     from langdetect import detect
+    import vlc
 except ImportError as e:
     pkg_install('gtts')
     pkg_install('langdetect')
+    pkg_install('python-vlc')
     from gtts import gTTS
     from langdetect import detect
+    import vlc
 
 
 def speak(text: str) -> bool:
@@ -34,16 +34,23 @@ def speak(text: str) -> bool:
     SOPLOG_DEBUG(f'lang detected: {lang}')
 
     myobj = gTTS(text=text, lang=lang, slow=False)
-    myobj.save("welcome.mp3")
-    os.system("mpg321 welcome.mp3")
+    file_name = 'temp.mp3'
+    abs_path = os.path.abspath(file_name)
+    myobj.save(abs_path)
+    playsound.playsound(abs_path)
 
-    return True
+    try:
+        vlc.MediaPlayer(abs_path).play()
+        return True
+    except Exception as e:
+        SOPLOG_DEBUG(f'failed to play {abs_path}...')
+        return False
 
 
 def arg_parse():
     parser = argparse.ArgumentParser()
     parser.add_argument("--name", '-n', action='store', type=str,
-                        required=False, default='basic_thing', help="thing name")
+                        required=False, default='TTS_big_thing', help="thing name")
     parser.add_argument("--host", '-ip', action='store', type=str,
                         required=False, default='127.0.0.1', help="host name")
     parser.add_argument("--port", '-p', action='store', type=int,

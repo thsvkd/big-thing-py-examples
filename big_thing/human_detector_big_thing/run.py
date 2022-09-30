@@ -28,7 +28,7 @@ def human_num() -> int:
 def arg_parse():
     parser = argparse.ArgumentParser()
     parser.add_argument("--name", '-n', action='store', type=str,
-                        required=False, default='basic_thing', help="thing name")
+                        required=False, default='human_detector_big_thing', help="thing name")
     parser.add_argument("--host", '-ip', action='store', type=str,
                         required=False, default='127.0.0.1', help="host name")
     parser.add_argument("--port", '-p', action='store', type=int,
@@ -60,12 +60,9 @@ def generate_thing(args):
     return thing
 
 
-def main():
-    thing = generate_thing(arg_parse())
-    thing.setup(avahi_enable=False)
-    thing.run()
-
-
 if __name__ == '__main__':
     run_object_detector()
-    main()
+    args = arg_parse()
+    thing = generate_thing(args)
+    thing.setup(avahi_enable=args.auto_scan)
+    thing.run()

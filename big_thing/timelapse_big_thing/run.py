@@ -42,7 +42,7 @@ def arg_parse():
     # parser.add_argument("--log", action='store_true', dest='log',
     #                     required=False, default=True, help="make log file")
     parser.add_argument("--name", '-n', action='store',
-                        required=False, default='TestSuperClient', help="client name")
+                        required=False, default='timelapse_big_thing', help="client name")
     parser.add_argument("--host", '-ip', action='store',
                         required=False, default='192.168.50.181', help="host name")
     parser.add_argument("--port", '-p', action='store',
@@ -92,11 +92,8 @@ def generate_thing(args):
     return thing
 
 
-def main():
-    thing = generate_thing(arg_parse())
-    thing.setup(avahi_enable=False)
-    thing.run()
-
-
 if __name__ == '__main__':
-    main()
+    args = arg_parse()
+    thing = generate_thing(args)
+    thing.setup(avahi_enable=args.auto_scan)
+    thing.run()

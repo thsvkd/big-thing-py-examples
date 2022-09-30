@@ -8,8 +8,11 @@ import datetime
 import argparse
 import smtplib
 import ssl
-from secret import SENDER_EMAIL
-from secret import EMAIL_PASSWORD_GMAIL, EMAIL_PASSWORD_NAVER, EMAIL_PASSWORD_LIVE
+
+SENDER_EMAIL = 'sopiotlab@gmail.com'
+
+EMAIL_PASSWORD_GMAIL = 'oxrorhtwsuereitq'
+EMAIL_PASSWORD_NAVER = ''
 
 
 def send(receive_address: str = None, title: str = 'TEST EMAIL', text: str = None) -> bool:
@@ -22,16 +25,17 @@ def send(receive_address: str = None, title: str = 'TEST EMAIL', text: str = Non
     elif 'naver' in SENDER_EMAIL:
         SMTP_SERVER = "smtp.naver.com"
         SENDER_PASSWORD = EMAIL_PASSWORD_NAVER
-    elif 'live' in SENDER_EMAIL:
-        SMTP_SERVER = "smtp.live.com"
-        SENDER_PASSWORD = EMAIL_PASSWORD_LIVE
+    else:
+        SOPLOG_DEBUG('Not supported email service')
+        raise
 
     context = ssl.create_default_context()
 
     with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_SSL_PORT, context=context) as server:
         server.login(SENDER_EMAIL, SENDER_PASSWORD)
-        msg = MIMEText(
-            f'{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")} \n{text}')
+        # msg = MIMEText(
+        #     f'{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")} \n{text}')
+        msg = MIMEText(text)
         msg['From'] = SENDER_EMAIL
         msg['Subject'] = title
         msg['To'] = RECEIVER_EMAIL
@@ -46,7 +50,7 @@ def send(receive_address: str = None, title: str = 'TEST EMAIL', text: str = Non
 def arg_parse():
     parser = argparse.ArgumentParser()
     parser.add_argument("--name", '-n', action='store', type=str,
-                        required=False, default='basic_thing', help="thing name")
+                        required=False, default='email_big_thing', help="thing name")
     parser.add_argument("--host", '-ip', action='store', type=str,
                         required=False, default='127.0.0.1', help="host name")
     parser.add_argument("--port", '-p', action='store', type=int,

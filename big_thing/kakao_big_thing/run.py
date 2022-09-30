@@ -25,7 +25,7 @@ def OCR(image: str) -> str:
     return kakao_apiclient.OCR(image)
 
 
-def translation(text: str, src:str, dst:str) -> str:
+def translation(text: str, src: str, dst: str) -> str:
     global kakao_apiclient
     return kakao_apiclient.translation(text, src, dst)
 
@@ -33,7 +33,7 @@ def translation(text: str, src:str, dst:str) -> str:
 def arg_parse():
     parser = argparse.ArgumentParser()
     parser.add_argument("--name", '-n', action='store', type=str,
-                        required=False, default='basic_thing', help="thing name")
+                        required=False, default='kakao_big_thing', help="thing name")
     parser.add_argument("--host", '-ip', action='store', type=str,
                         required=False, default='127.0.0.1', help="host name")
     parser.add_argument("--port", '-p', action='store', type=int,

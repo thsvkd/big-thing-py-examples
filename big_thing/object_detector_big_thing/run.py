@@ -16,7 +16,7 @@ def arg_parse():
     parser = argparse.ArgumentParser(description="YOLO Object Detection")
 
     parser.add_argument("--name", '-n', action='store', type=str,
-                        required=False, default='basic_thing', help="thing name")
+                        required=False, default='object_detector_big_thing', help="thing name")
     parser.add_argument("--host", '-ip', action='store', type=str,
                         required=False, default='127.0.0.1', help="host name")
     parser.add_argument("--port", '-p', action='store', type=int,
@@ -278,13 +278,9 @@ def generate_thing(args):
     return thing
 
 
-def main():
+if __name__ == '__main__':
     args = arg_parse()
     init_darknet(args)
     thing = generate_thing(args)
-    thing.setup(avahi_enable=False)
+    thing.setup(avahi_enable=args.auto_scan)
     thing.run()
-
-
-if __name__ == '__main__':
-    main()
