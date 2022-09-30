@@ -4,46 +4,25 @@ from big_thing_py.big_thing import *
 
 import argparse
 import os
+from gtts import gTTS
+from langdetect import detect
 import playsound
 
 
-def pkg_install(package):
-    import pip
-
-    if hasattr(pip, 'main'):
-        pip.main(['install', package])
-    else:
-        pip._internal.main(['install', package])
-
-
-try:
-    from gtts import gTTS
-    from langdetect import detect
-    import vlc
-except ImportError as e:
-    pkg_install('gtts')
-    pkg_install('langdetect')
-    pkg_install('python-vlc')
-    from gtts import gTTS
-    from langdetect import detect
-    import vlc
-
-
 def speak(text: str) -> bool:
-    lang = detect(text)
-    SOPLOG_DEBUG(f'lang detected: {lang}')
-
-    myobj = gTTS(text=text, lang=lang, slow=False)
-    file_name = 'temp.mp3'
-    abs_path = os.path.abspath(file_name)
-    myobj.save(abs_path)
-    playsound.playsound(abs_path)
-
     try:
-        vlc.MediaPlayer(abs_path).play()
+        lang = detect(text)
+        SOPLOG_DEBUG(f'lang detected: {lang}')
+
+        myobj = gTTS(text=text, lang=lang, slow=False)
+        file_name = 'temp.mp3'
+        abs_path = os.path.abspath(file_name)
+        myobj.save(abs_path)
+        playsound.playsound(abs_path)
+
         return True
     except Exception as e:
-        SOPLOG_DEBUG(f'failed to play {abs_path}...')
+        SOPLOG_DEBUG(f'Failed to speak : {e}')
         return False
 
 
