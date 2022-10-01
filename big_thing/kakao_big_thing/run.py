@@ -37,7 +37,7 @@ def arg_parse():
     parser.add_argument("--host", '-ip', action='store', type=str,
                         required=False, default='127.0.0.1', help="host name")
     parser.add_argument("--port", '-p', action='store', type=int,
-                        required=False, default=1883, help="port")
+                        required=False, default=11083, help="port")
     parser.add_argument("--alive_cycle", '-ac', action='store', type=int,
                         required=False, default=60, help="alive cycle")
     parser.add_argument("--auto_scan", '-as', action='store_true',

@@ -46,7 +46,7 @@ def arg_parse():
     parser.add_argument("--host", '-ip', action='store',
                         required=False, default='192.168.50.181', help="host name")
     parser.add_argument("--port", '-p', action='store',
-                        required=False, default=1883, help="port")
+                        required=False, default=11083, help="port")
     parser.add_argument("--refresh_cycle", '-rc', action='store',
                         required=False, default=5, help="refresh_cycle")
     args, unknown = parser.parse_known_args()
