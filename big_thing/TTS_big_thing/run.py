@@ -22,7 +22,7 @@ def speak(text: str) -> bool:
 
         return True
     except Exception as e:
-        SOPLOG_DEBUG(f'Failed to speak : {e}')
+        print_error(e)
         return False
 
 

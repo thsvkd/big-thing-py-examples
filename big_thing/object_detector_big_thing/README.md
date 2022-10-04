@@ -1,5 +1,10 @@
 # 예제 설명
 
+<aside>
+💡 우분투에서만 사용가능한 예제입니다.
+
+</aside>
+
 물체를 감지하는 서비스를 제공하는 Thing 예제
 
 # 의존성
@@ -13,7 +18,7 @@ chmod +x preinstall.sh
 
 ```bash
 cd big_thing/object_detector_big_thing
-python run.py [options]
+python run.py
 ```
 
 # 옵션
@@ -26,7 +31,7 @@ python run.py [options]
     
     Thing의 ip 주소
     
-- `-p, --port | default=1883`
+- `-p, --port | default=11083`
     
     Thing의 port 번호
     

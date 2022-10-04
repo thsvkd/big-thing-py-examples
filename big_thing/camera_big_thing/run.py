@@ -1,6 +1,7 @@
 #!/bin/python
 
 import argparse
+from datetime import datetime
 from platform import uname
 from big_thing_py.big_thing import *
 
@@ -9,25 +10,41 @@ import cv2
 
 def camera_capture(image_name: str, cam_num: int = 0):
     try:
-        cam = cv2.VideoCapture(cam_num)
+        ret = False
         if uname().system == 'Darwin':
+            cam = cv2.VideoCapture(cam_num)
             curr_time = time.time()
-            while time.time() - curr_time < 1:
-                _, frame = cam.read()
-                key = cv2.waitKey(30)
+            while time.time() - curr_time < 0.1:
+                ret, frame = cam.read()
+                cv2.waitKey(30)
                 cv2.imwrite(image_name, frame)
-            return True
-        else:
+        elif uname().system == 'Windows':
+            cam = cv2.VideoCapture(cam_num, cv2.CAP_DSHOW)
             ret, frame = cam.read()
             cv2.imwrite(image_name, frame)
             cam.release()
-            return True
+        else:
+            cam = cv2.VideoCapture(cam_num)
+            ret, frame = cam.read()
+            cv2.imwrite(image_name, frame)
+            cam.release()
     except Exception as e:
         print_error(e)
         return False
 
+    return ret
 
-def capture(file_name: str) -> str:
+
+def capture() -> str:
+    formattedDate = datetime.now().strftime("%Y%m%d_%H%M%S")
+    file_name = f'{formattedDate}.jpg'
+    result = camera_capture(file_name, 0)
+    if result:
+        return os.path.abspath(file_name)
+    else:
+        return '실패'
+    
+def capture_with_filename(file_name: str) -> str:
     result = camera_capture(file_name, 0)
     if result:
         return os.path.abspath(file_name)
@@ -61,7 +78,13 @@ def generate_thing(args):
                                  timeout=300 * 1000,
                                  return_type=SoPType.STRING,
                                  tag_list=tag_list,
-                                 arg_list=[SoPArgument(name='function_camera_arg',
+                                 arg_list=[]),
+                     SoPFunction(func=capture_with_filename,
+                                 exec_time=300 * 1000,
+                                 timeout=300 * 1000,
+                                 return_type=SoPType.STRING,
+                                 tag_list=tag_list,
+                                 arg_list=[SoPArgument(name='image_name_arg',
                                                        type=SoPType.STRING,
                                                        bound=(0, 10000))])]
     value_list = []
