@@ -1,15 +1,12 @@
 
+from big_thing_py.big_thing import *
+
 import time
 import os
-import os.path as op
 import datetime
-import argparse
 from glob import glob
 from tqdm import tqdm
 import cv2
-
-from big_thing_py.big_thing import *
-
 
 # 현재 웹캠이 지원하는 해상도 출력
 # v4l2-ctl -d /dev/video0 --list-formats-ext
@@ -31,7 +28,7 @@ from big_thing_py.big_thing import *
 
 def make_folder(folder):
     try:
-        if not op.exists(folder):
+        if not os.path.exists(folder):
             os.makedirs(folder)
     except OSError:
         print(
@@ -72,7 +69,7 @@ class Timelapse():
     DEFAULT_VIDEO_FOLDER = 'video_out'
     DEFAULT_CONFIG_PATH = 'config.json'
 
-    def __init__(self, width=1920, height=1080, fps=30.0, cap_num=1, cycle=1000):
+    def __init__(self, width=1920, height=1080, fps=30.0, cap_num=0, cycle=1000):
         self.cap = None
         self.width = width
         self.height = height

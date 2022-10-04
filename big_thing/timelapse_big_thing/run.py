@@ -32,23 +32,25 @@ def actuate_timelapse_stop() -> bool:
     return True
 
 
-def actuate_timelapse_makevideo() -> bool:
-    result = timelapse.make_video()
+def actuate_timelapse_makevideo(dst: str = './video_out') -> bool:
+    result = timelapse.make_video(des_path=dst)
     return result
 
 
 def arg_parse():
     parser = argparse.ArgumentParser()
-    # parser.add_argument("--log", action='store_true', dest='log',
-    #                     required=False, default=True, help="make log file")
-    parser.add_argument("--name", '-n', action='store',
-                        required=False, default='timelapse_big_thing', help="client name")
-    parser.add_argument("--host", '-ip', action='store',
-                        required=False, default='192.168.50.181', help="host name")
-    parser.add_argument("--port", '-p', action='store',
+    parser.add_argument("--name", '-n', action='store', type=str,
+                        required=False, default='timelapse_big_thing', help="thing name")
+    parser.add_argument("--host", '-ip', action='store', type=str,
+                        required=False, default='127.0.0.1', help="host name")
+    parser.add_argument("--port", '-p', action='store', type=int,
                         required=False, default=11083, help="port")
-    parser.add_argument("--refresh_cycle", '-rc', action='store',
-                        required=False, default=5, help="refresh_cycle")
+    parser.add_argument("--alive_cycle", '-ac', action='store', type=int,
+                        required=False, default=60, help="alive cycle")
+    parser.add_argument("--auto_scan", '-as', action='store_true',
+                        required=False, help="middleware auto scan enable")
+    parser.add_argument("--log", action='store_true',
+                        required=False, help="log enable")
     args, unknown = parser.parse_known_args()
 
     return args
@@ -56,7 +58,7 @@ def arg_parse():
 
 def generate_thing(args):
     timelapse.run_thread()
-    tag_list = SoPTag(name='timelapse')
+    tag_list = [SoPTag(name='timelapse')]
 
     # value_list = [SoPValue(name='time_passed',
     #                        function=sense_time_passed,
@@ -85,7 +87,9 @@ def generate_thing(args):
                                  func=actuate_timelapse_makevideo,
                                  return_type=SoPType.BOOL,
                                  tag_list=tag_list,
-                                 arg_list=[])]
+                                 arg_list=[SoPArgument(name='video_out_path',
+                                                       bound=(0, 1000),
+                                                       type=SoPType.STRING)])]
 
     thing = SoPBigThing(name=args.name, ip=args.host, port=args.port, alive_cycle=args.alive_cycle,
                         service_list=function_list + value_list)
