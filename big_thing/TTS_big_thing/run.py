@@ -6,7 +6,16 @@ import argparse
 import os
 from gtts import gTTS
 from langdetect import detect
-import playsound
+import platform
+
+
+def pkg_install(package):
+    import pip
+
+    if hasattr(pip, 'main'):
+        pip.main(['install', package])
+    else:
+        pip._internal.main(['install', package])
 
 
 def speak(text: str) -> bool:
@@ -15,10 +24,25 @@ def speak(text: str) -> bool:
         SOPLOG_DEBUG(f'lang detected: {lang}')
 
         myobj = gTTS(text=text, lang=lang, slow=False)
-        file_name = 'temp.mp3'
+        file_name = 'temp.wav'
         abs_path = os.path.abspath(file_name)
         myobj.save(abs_path)
-        playsound.playsound(abs_path)
+
+        if platform.uname().system == 'Windows':
+            try:
+                import sounddevice as sd
+                import soundfile as sf
+            except ImportError:
+                pkg_install('sounddevice')
+                pkg_install('soundfile')
+                import sounddevice as sd
+                import soundfile as sf
+
+            data, fs = sf.read(file_name, dtype='float32')
+            sd.play(data, fs)
+            sd.wait()
+        elif platform.uname().system in ['Linux', 'Darwin']:
+            os.system(f'mpg321 {abs_path}')
 
         return True
     except Exception as e:

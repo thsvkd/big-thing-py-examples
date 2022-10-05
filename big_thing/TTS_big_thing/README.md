@@ -4,15 +4,32 @@ TTS 음성 발화기능을 제공하는 Thing 예제
 
 # 의존성
 
-```bash
-pip install -r requirements.txt
-```
+- Ubuntu
+    
+    ```bash
+    sudo apt install mpg321
+    pip install -r requirements.txt
+    ```
+    
+- Mac
+    
+    ```bash
+    brew install mpg321
+    pip install -r requirements.txt
+    ```
+    
+- Windows
+    
+    ```bash
+    pip install -r requirements.txt
+    ```
+    
 
 # 실행
 
 ```bash
 cd big_thing/TTS_big_thing
-python run.py [options]
+python run.py
 ```
 
 # 옵션
@@ -25,7 +42,7 @@ python run.py [options]
     
     Thing의 ip 주소
     
-- `-p, --port | default=1883`
+- `-p, --port | default=11083`
     
     Thing의 port 번호
     

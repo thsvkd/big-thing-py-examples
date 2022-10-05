@@ -1,3 +1,2 @@
 gtts
 langdetect
-playsound==1.2.2
