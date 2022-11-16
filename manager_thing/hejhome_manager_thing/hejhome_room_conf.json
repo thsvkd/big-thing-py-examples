@@ -3,15 +3,15 @@
   "room_list": [
     {
       "room_name": "[ROOM_NAME1]",
-      "bridge_ip": "http://[HUE_BRIDGE_HOST1]/api/",
+      "bridge_ip": "http://https://goqual.io/openapi",
       "bridge_port": 80,
-      "user_key": "[HUE_API_KEY1]"
+      "user_key": "[HEJHOME_API_KEY1]"
     },
     {
       "room_name": "[ROOM_NAME2]",
-      "bridge_ip": "http://[HUE_BRIDGE_HOST2]/api/",
+      "bridge_ip": "http://https://goqual.io/openapi",
       "bridge_port": 80,
-      "user_key": "[HUE_API_KEY2]"
+      "user_key": "[HEJHOME_API_KEY2]"
     }
   ]
 }
