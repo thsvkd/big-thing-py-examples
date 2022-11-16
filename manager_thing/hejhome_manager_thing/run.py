@@ -24,9 +24,11 @@ def arg_parse():
     parser.add_argument("--bridge_port", '-bp', action='store', type=int,
                         required=False, default=80, help="bridge port")
     parser.add_argument("--user_key", '-k', action='store', type=str,
-                        required=False, default='16502431-6249-474c-aeb0-f2d18e66aaac', help="user_key")
+                        required=False, default='', help="user_key")
     parser.add_argument("--scan_cycle", '-sc', action='store', type=int,
                         required=False, default=60, help="scan_cycle")
+    parser.add_argument("--config", '-c', action='store', type=str,
+                        required=False, default='hejhome_room_conf.json', help="config file path")
     parser.add_argument("--mode", '-md', action='store', type=str,
                         required=False, default=SoPManagerMode.SPLIT.value, help="scan_cycle")
     arg_list, unknown = parser.parse_known_args()
@@ -35,15 +37,12 @@ def arg_parse():
 
 
 def generate_thing(args):
-    thing = SoPHejhomeManagerThing(name=args.name, ip=args.host, port=args.port,
-                                   bridge_ip=args.bridge_host, bridge_port=args.bridge_host,
-                                   user_key=args.user_key, mode=SoPManagerMode.get(
-                                       args.mode),
-                                   scan_cycle=args.scan_cycle,
-                                   alive_cycle=args.alive_cycle,
-                                   conf_file_path='hejhome_room_conf.json',
-                                   append_mac_address=args.append_mac)
-    return thing
+    client = SoPHejhomeManagerThing(name=args.name, ip=args.host, port=args.port,
+                                    bridge_ip=args.bridge_host, bridge_port=args.bridge_port, alive_cycle=args.alive_cycle, service_list=[],
+                                    user_key=args.user_key, mode=args.mode,
+                                    scan_cycle=args.scan_cycle, conf_file_path=args.config)
+    client.setup(avahi_enable=False)
+    client.run()
 
 
 if __name__ == '__main__':
