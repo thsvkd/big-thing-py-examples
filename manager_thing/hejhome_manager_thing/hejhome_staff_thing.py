@@ -3,9 +3,10 @@ from hejhome_utils import *
 
 
 class SoPHejhomeStaffThing(SoPStaffThing):
-    def __init__(self, name=None, service_list: List[SoPService] = [], alive_cycle=60 * 60,  is_super=False, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None, device_id=None):
-        super().__init__(name=name, service_list=service_list,
-                         alive_cycle=alive_cycle, device_id=device_id, is_super=is_super)
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True,
+                 device_id: str = None,
+                 bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None):
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel, device_id)
         self._id = self._device_id
         self._room_id = room_id
         self._home_id = home_id
@@ -46,15 +47,15 @@ class SoPHejhomeStaffThing(SoPStaffThing):
 
 
 class SoPBruntPlugHejhomeStaffThing(SoPHejhomeStaffThing):
-    def __init__(self, name=None, service_list: List[SoPService] = [], alive_cycle=60 * 60, is_super=False, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None, device_id=None):
-        super().__init__(name, service_list, alive_cycle,
-                         is_super, bridge_ip, user_key, header, home_id, room_id, device_id)
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True, device_id: str = None, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None):
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel,
+                         device_id, bridge_ip, user_key, header, home_id, room_id)
 
 
 class SoPCurtainHejhomeStaffThing(SoPHejhomeStaffThing):
-    def __init__(self, name=None, service_list: List[SoPService] = [], alive_cycle=60 * 60, is_super=False, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None, device_id=None):
-        super().__init__(name, service_list, alive_cycle,
-                         is_super, bridge_ip, user_key, header, home_id, room_id, device_id)
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True, device_id: str = None, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None):
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel,
+                         device_id, bridge_ip, user_key, header, home_id, room_id)
 
     def on(self) -> bool:
         SOPLOG_DEBUG('on actuate!!! -> redirect to curtain_open', 'green')
@@ -98,9 +99,9 @@ class SoPCurtainHejhomeStaffThing(SoPHejhomeStaffThing):
 
 
 class SoPZigbeeSwitch3HejhomeStaffThing(SoPHejhomeStaffThing):
-    def __init__(self, name=None, service_list: List[SoPService] = [], alive_cycle=60 * 60, is_super=False, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None, device_id=None):
-        super().__init__(name, service_list, alive_cycle,
-                         is_super, bridge_ip, user_key, header, home_id, room_id, device_id)
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True, device_id: str = None, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None):
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel,
+                         device_id, bridge_ip, user_key, header, home_id, room_id)
         self.sw1_status = None
         self.sw2_status = None
         self.sw3_status = None
@@ -333,21 +334,21 @@ class SoPZigbeeSwitch3HejhomeStaffThing(SoPHejhomeStaffThing):
 
 
 class SoPIrDiyHejhomeStaffThing(SoPHejhomeStaffThing):
-    def __init__(self, name=None, service_list: List[SoPService] = [], alive_cycle=60 * 60, is_super=False, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None, device_id=None):
-        super().__init__(name, service_list, alive_cycle,
-                         is_super, bridge_ip, user_key, header, home_id, room_id, device_id)
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True, device_id: str = None, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None):
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel,
+                         device_id, bridge_ip, user_key, header, home_id, room_id)
 
 
 class SoPIrAirconditionerHejhomeStaffThing(SoPHejhomeStaffThing):
-    def __init__(self, name=None, service_list: List[SoPService] = [], alive_cycle=60 * 60, is_super=False, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None, device_id=None):
-        super().__init__(name, service_list, alive_cycle,
-                         is_super, bridge_ip, user_key, header, home_id, room_id, device_id)
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True, device_id: str = None, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None):
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel,
+                         device_id, bridge_ip, user_key, header, home_id, room_id)
 
 
 class SoPLedStripRgbw2HejhomeStaffThing(SoPHejhomeStaffThing):
-    def __init__(self, name=None, service_list: List[SoPService] = [], alive_cycle=60 * 60, is_super=False, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None, device_id=None):
-        super().__init__(name, service_list, alive_cycle,
-                         is_super, bridge_ip, user_key, header, home_id, room_id, device_id)
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True, device_id: str = None, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None):
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel,
+                         device_id, bridge_ip, user_key, header, home_id, room_id)
 
     def set_brightness(self, brightness: int) -> bool:
         SOPLOG_DEBUG('set_brightness actuate!!!', 'green')
@@ -396,6 +397,6 @@ class SoPLedStripRgbw2HejhomeStaffThing(SoPHejhomeStaffThing):
 
 
 class SoPIrTvHejhomeStaffThing(SoPHejhomeStaffThing):
-    def __init__(self, name=None, service_list: List[SoPService] = [], alive_cycle=60 * 60, is_super=False, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None, device_id=None):
-        super().__init__(name, service_list, alive_cycle,
-                         is_super, bridge_ip, user_key, header, home_id, room_id, device_id)
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True, device_id: str = None, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None):
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel,
+                         device_id, bridge_ip, user_key, header, home_id, room_id)

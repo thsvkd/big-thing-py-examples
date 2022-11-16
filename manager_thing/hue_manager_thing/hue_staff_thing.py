@@ -3,9 +3,11 @@ from hue_utils import *
 
 
 class SoPHueStaffThing(SoPStaffThing):
-    def __init__(self, name=None, service_list: List[SoPService] = [], alive_cycle=10,  is_super=False, idx=None, bridge_ip=None, user_key=None, header=None, device_id=None):
-        super().__init__(name=name, service_list=service_list,
-                         alive_cycle=alive_cycle, device_id=device_id, is_super=is_super)
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True,
+                 device_id: str = None,
+                 idx=None, bridge_ip=None, user_key=None, header=None):
+        super().__init__(name, service_list, alive_cycle,
+                         is_super, is_parallel, device_id)
         self._idx = idx
         self._bridge_ip = bridge_ip.strip('/')
         self._user_key = user_key

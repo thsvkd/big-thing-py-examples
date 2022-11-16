@@ -5,12 +5,12 @@ from hejhome_utils import *
 
 
 class SoPHejhomeManagerThing(SoPManagerThing):
-
-    def __init__(self, name: str = None, service_list: List[SoPService] = None, alive_cycle: float = 60, is_super: bool = False, is_parallel: bool = True, ip: str = None, port: int = None, ssl_ca_path: str = None, ssl_enable: bool = None, log_enable: bool = True, append_mac_address: bool = True, mode: SoPManagerMode = ..., network_type: SoPNetworkType = ..., scan_cycle=5,
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True,
+                 ip: str = None, port: int = None, ssl_ca_path: str = None, ssl_enable: bool = None, log_name: str = None, log_enable: bool = True, log_mode: SoPPrintMode = SoPPrintMode.ABBR, append_mac_address: bool = True,
+                 mode: SoPManagerMode = SoPManagerMode.SPLIT, network_type: SoPNetworkType = SoPNetworkType.MQTT, scan_cycle=5,
                  bridge_ip='', bridge_port=80, user_key='', conf_file_path: str = 'hejhome_room_conf.json',):
-        super().__init__(name, service_list, alive_cycle, is_super, is_parallel, ip, port,
-                         ssl_ca_path, ssl_enable, log_enable, append_mac_address, mode, network_type, scan_cycle)
-
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel, ip, port, ssl_ca_path,
+                         ssl_enable, log_name, log_enable, log_mode, append_mac_address, mode, network_type, scan_cycle)
         self._staff_thing_list: List[SoPHejhomeStaffThing] = []
         self._conf_file_path = conf_file_path
 
@@ -72,22 +72,22 @@ class SoPHejhomeManagerThing(SoPManagerThing):
 
         try:
             if hejhome_device_list == False:
-                protocol_type = [SoPProtocolType.Default.TM_ALIVE]
+                protocol_type = [SoPProtocolType.Base.TM_ALIVE]
             elif 'result' in hejhome_device_list:
                 protocol_type = [
-                    SoPProtocolType.Default.TM_REGISTER, SoPProtocolType.Default.TM_ALIVE]
+                    SoPProtocolType.Base.TM_REGISTER, SoPProtocolType.Base.TM_ALIVE]
         except Exception as e:
             SOPLOG_DEBUG(
                 f'[_handle_staff_message] Failed to get hejhome_device_list...', 'red')
             protocol_type = []
 
-        if SoPProtocolType.Default.TM_REGISTER in protocol_type:
+        if SoPProtocolType.Base.TM_REGISTER in protocol_type:
             self._handle_staff_REGISTER(msg)
-        elif SoPProtocolType.Default.TM_ALIVE in protocol_type:
+        elif SoPProtocolType.Base.TM_ALIVE in protocol_type:
             self._handle_staff_ALIVE(msg)
-        elif SoPProtocolType.Default.TM_VALUE_PUBLISH in protocol_type or SoPProtocolType.Default.TM_VALUE_PUBLISH_OLD in protocol_type:
+        elif SoPProtocolType.Base.TM_VALUE_PUBLISH in protocol_type or SoPProtocolType.Base.TM_VALUE_PUBLISH_OLD in protocol_type:
             self._handle_staff_VALUE_PUBLISH(msg)
-        elif SoPProtocolType.Default.TM_RESULT_EXECUTE in protocol_type:
+        elif SoPProtocolType.Base.TM_RESULT_EXECUTE in protocol_type:
             self._handle_staff_RESULT_EXECUTE(msg)
 
     def _send_staff_message(self, msg: Union[StaffRegisterResult, None]):
@@ -167,6 +167,7 @@ class SoPHejhomeManagerThing(SoPManagerThing):
     #  \__,_| \__||_||_||___/
     # ========================
 
+    # override
     def _receive_staff_packet(self):
         cur_time = time.time()
 
@@ -187,7 +188,7 @@ class SoPHejhomeManagerThing(SoPManagerThing):
                 url=f'{self._bridge_ip}/homes', header=self._header, body='')
 
             for staff_thing in self._staff_thing_list:
-                self.send_TM_ALIVE(staff_thing.get_name())
+                self._send_TM_ALIVE(staff_thing.get_name())
                 staff_thing.set_last_alive_time(cur_time)
             if self.verify_hejhome_request_result(hejhome_home_list):
                 self._last_scan_time = cur_time
@@ -201,7 +202,7 @@ class SoPHejhomeManagerThing(SoPManagerThing):
                     hejhome_home_list = API_request(
                         url=f'{self._bridge_ip}/homes/{staff_thing._home_id}/rooms/{staff_thing._room_id}', header=self._header, body='')
                     if self.verify_hejhome_request_result(hejhome_home_list):
-                        self.send_TM_ALIVE(staff_thing.get_name())
+                        self._send_TM_ALIVE(staff_thing.get_name())
                         staff_thing.set_last_alive_time(cur_time)
                         return hejhome_home_list
                     else:
@@ -212,11 +213,12 @@ class SoPHejhomeManagerThing(SoPManagerThing):
                         if cur_time - value.get_last_update_time() > value.get_cycle():
                             # update() method update _last_update_time of SoPValue
                             value.update()
-                            self.send_TM_VALUE_PUBLISH(
+                            self._send_TM_VALUE_PUBLISH(
                                 value.get_name(), value.dump_pub())
 
         return None
 
+    # override
     def _publish_staff_packet(self, msg):
         pass
 
@@ -243,6 +245,7 @@ class SoPHejhomeManagerThing(SoPManagerThing):
         else:
             return True
 
+    # override
     def _create_staff(self, staff_thing_info: SoPHejhomeStaffThingInfo) -> SoPHejhomeStaffThing:
         staff_info = staff_thing_info.hejhome_info
 
@@ -266,14 +269,12 @@ class SoPHejhomeManagerThing(SoPManagerThing):
                     SoPTag(name),
                     SoPTag(locate)]
 
-        # hejhome_child_thing = SoPHejhomeStaffThing(
-        #     name=name, alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, device_id=uniqueid)
         hejhome_child_thing = SoPHejhomeStaffThing(
-            name=name, alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
+            name=name, service_list=[], alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
 
         if deviceType == 'BruntPlug':
             hejhome_child_thing = SoPBruntPlugHejhomeStaffThing(
-                name=f'{deviceType}_{uniqueid}', alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
+                name=f'{deviceType}_{uniqueid}', service_list=[], alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
             staff_function_list: List[SoPFunction] = []
             staff_value_list: List[SoPValue] = []
             staff_service_list: List[SoPService] = staff_value_list + \
@@ -286,7 +287,7 @@ class SoPHejhomeManagerThing(SoPManagerThing):
                 hejhome_child_thing._add_service(staff_service)
         elif deviceType == 'Curtain':
             hejhome_child_thing = SoPCurtainHejhomeStaffThing(
-                name=f'{deviceType}_{uniqueid}', alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
+                name=f'{deviceType}_{uniqueid}', service_list=[], alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
 
             # curtain_open
             curtain_open_function = SoPFunction(
@@ -311,7 +312,7 @@ class SoPHejhomeManagerThing(SoPManagerThing):
                 hejhome_child_thing._add_service(staff_service)
         elif deviceType == 'ZigbeeSwitch3':
             hejhome_child_thing = SoPZigbeeSwitch3HejhomeStaffThing(
-                name=f'{deviceType}_{uniqueid}', alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
+                name=f'{deviceType}_{uniqueid}', service_list=[], alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
 
             arg_on = SoPArgument(
                 name='on', type=SoPType.BOOL, bound=(0, 2))
@@ -358,13 +359,13 @@ class SoPHejhomeManagerThing(SoPManagerThing):
                 hejhome_child_thing._add_service(staff_service)
         elif deviceType == 'IrDiy':
             hejhome_child_thing = SoPIrDiyHejhomeStaffThing(
-                name=f'{deviceType}_{uniqueid}', alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
+                name=f'{deviceType}_{uniqueid}', service_list=[], alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
         elif deviceType == 'IrAirconditioner':
             hejhome_child_thing = SoPIrAirconditionerHejhomeStaffThing(
-                name=f'{deviceType}_{uniqueid}', alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
+                name=f'{deviceType}_{uniqueid}', service_list=[], alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
         elif deviceType == 'LedStripRgbw2':
             hejhome_child_thing = SoPLedStripRgbw2HejhomeStaffThing(
-                name=f'{deviceType}_{uniqueid}', alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
+                name=f'{deviceType}_{uniqueid}', service_list=[], alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
 
             # set_brightness
             arg_brightness = SoPArgument(
@@ -401,7 +402,7 @@ class SoPHejhomeManagerThing(SoPManagerThing):
                 hejhome_child_thing._add_service(staff_service)
         elif deviceType == 'IrTv':
             hejhome_child_thing = SoPIrTvHejhomeStaffThing(
-                name=f'{deviceType}_{uniqueid}', alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
+                name=f'{deviceType}_{uniqueid}', service_list=[], alive_cycle=60 * 60, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, home_id=home_id, room_id=room_id, device_id=uniqueid)
         else:
             SOPLOG_DEBUG('Unexpected function!!!', 'red')
 

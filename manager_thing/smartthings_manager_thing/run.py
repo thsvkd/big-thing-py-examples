@@ -38,6 +38,8 @@ def arg_parse():
                         required=False, default='c3c3f326-df2a-4eb5-a03b-abe1ec874986', help="user_key")
     parser.add_argument("--scan_cycle", '-sc', action='store', type=int,
                         required=False, default=60, help="scan_cycle")
+    parser.add_argument("--config", '-c', action='store', type=str,
+                        required=False, default='smartthings_room_conf.json', help="config file path")
     parser.add_argument("--mode", '-md', action='store', type=str,
                         required=False, default=SoPManagerMode.SPLIT.value, help="scan_cycle")
     arg_list, unknown = parser.parse_known_args()

@@ -5,11 +5,13 @@ from hue_utils import *
 
 class SoPHueManagerThing(SoPManagerThing):
 
-    def __init__(self, ip='127.0.0.1', port=1883, bridge_ip='', bridge_port=80, mode='split', user_key='', scan_cycle=10,
-                 conf_file_path: str = 'hue_room_conf.json', ssl_enable=None, ssl_ca_path: str = f'{get_project_root()}/CA/'):
-        super().__init__(ip=ip, port=port, mode=mode,
-                         scan_cycle=scan_cycle, ssl_enable=ssl_enable, ssl_ca_path=ssl_ca_path)
-
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True,
+                 ip: str = None, port: int = None, ssl_ca_path: str = None, ssl_enable: bool = None, log_name: str = None, log_enable: bool = True, log_mode: SoPPrintMode = SoPPrintMode.ABBR, append_mac_address: bool = True,
+                 mode: SoPManagerMode = SoPManagerMode.SPLIT, network_type: SoPNetworkType = SoPNetworkType.MQTT, scan_cycle=5,
+                 bridge_ip: str = '', bridge_port: int = 80, user_key='', conf_file_path: str = 'hue_room_conf.json'):
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel,
+                         ip, port, ssl_ca_path, ssl_enable, log_name, log_enable, log_mode, append_mac_address,
+                         mode, network_type, scan_cycle)
         self._child_thing_list: List[SoPHueStaffThing] = []
         self._conf_file_path = conf_file_path
 
@@ -72,16 +74,16 @@ class SoPHueManagerThing(SoPManagerThing):
         for idx, hue_device in hue_device_list.items():
             if 'state' in hue_device:
                 protocol_type = [
-                    SoPProtocolType.Default.TM_REGISTER, SoPProtocolType.Default.TM_ALIVE]
+                    SoPProtocolType.Base.TM_REGISTER, SoPProtocolType.Base.TM_ALIVE]
                 break
 
-        if SoPProtocolType.Default.TM_REGISTER in protocol_type:
+        if SoPProtocolType.Base.TM_REGISTER in protocol_type:
             self._handle_staff_REGISTER(msg)
-        elif SoPProtocolType.Default.TM_ALIVE in protocol_type:
+        elif SoPProtocolType.Base.TM_ALIVE in protocol_type:
             self._handle_staff_ALIVE(msg)
-        elif SoPProtocolType.Default.TM_VALUE_PUBLISH in protocol_type or SoPProtocolType.Default.TM_VALUE_PUBLISH_OLD in protocol_type:
+        elif SoPProtocolType.Base.TM_VALUE_PUBLISH in protocol_type or SoPProtocolType.Base.TM_VALUE_PUBLISH_OLD in protocol_type:
             self._handle_staff_VALUE_PUBLISH(msg)
-        elif SoPProtocolType.Default.TM_RESULT_EXECUTE in protocol_type:
+        elif SoPProtocolType.Base.TM_RESULT_EXECUTE in protocol_type:
             self._handle_staff_RESULT_EXECUTE(msg)
 
     # TODO: implement this
@@ -143,7 +145,7 @@ class SoPHueManagerThing(SoPManagerThing):
             hue_device_list = API_request(
                 url=f'{self._bridge_ip}/{self._user_key}/lights', header=self._header, body='')
             for staff_thing in self._staff_thing_list:
-                self.send_TM_ALIVE(staff_thing.get_name())
+                self._send_TM_ALIVE(staff_thing.get_name())
                 staff_thing.set_last_alive_time(cur_time)
             if self.verify_hue_request_result(hue_device_list):
                 self._last_scan_time = cur_time
@@ -157,7 +159,7 @@ class SoPHueManagerThing(SoPManagerThing):
                     hue_device_list = API_request(
                         url=f'{self._bridge_ip}/{self._user_key}/lights', header=self._header, body='')
                     if self.verify_hue_request_result(hue_device_list):
-                        self.send_TM_ALIVE(staff_thing.get_name())
+                        self._send_TM_ALIVE(staff_thing.get_name())
                         staff_thing.set_last_alive_time(cur_time)
                         return hue_device_list
                     else:
@@ -168,7 +170,7 @@ class SoPHueManagerThing(SoPManagerThing):
                         if cur_time - value.get_last_update_time() > value.get_cycle():
                             # update() method update _last_update_time of SoPValue
                             value.update()
-                            self.send_TM_VALUE_PUBLISH(
+                            self._send_TM_VALUE_PUBLISH(
                                 value.get_name(), value.dump_pub())
 
         return None
@@ -203,11 +205,12 @@ class SoPHueManagerThing(SoPManagerThing):
         staff_info = staff_thing_info.hue_info
 
         idx = staff_thing_info.idx
-        name = staff_info['name'].replace(' ', '_')
+        name = staff_info['name'].replace(
+            ' ', '_').replace('(', '_').replace(')', '_')
         uniqueid = staff_info['uniqueid']
 
         hue_child_thing = SoPHueStaffThing(
-            idx=idx, name=name, alive_cycle=10, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, device_id=uniqueid)
+            name=name, service_list=[], alive_cycle=10, idx=idx, bridge_ip=self._bridge_ip, user_key=self._user_key, header=self._header, device_id=uniqueid)
 
         on_function = SoPFunction(
             name='on', func=hue_child_thing.on,
