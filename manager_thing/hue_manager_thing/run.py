@@ -20,13 +20,15 @@ def arg_parse():
                         required=False, default=True, help="log enable")
 
     parser.add_argument("--bridge_host", '-bip', action='store', type=str,
-                        required=False, default='http://147.46.114.165/api/', help="bridge ip")
+                        required=False, default='', help="bridge ip")
     parser.add_argument("--bridge_port", '-bp', action='store', type=int,
                         required=False, default=80, help="bridge port")
     parser.add_argument("--user_key", '-k', action='store', type=str,
-                        required=False, default='L-idzo6XFfRVA-DzXyA66xKzi-KxIJA75neakYyS', help="user_key")
+                        required=False, default='', help="user_key")
     parser.add_argument("--scan_cycle", '-sc', action='store', type=int,
                         required=False, default=60, help="scan_cycle")
+    parser.add_argument("--config", '-c', action='store', type=str,
+                        required=False, default='hue_room_conf.json', help="config file path")
     parser.add_argument("--mode", '-md', action='store', type=str,
                         required=False, default=SoPManagerMode.SPLIT.value, help="scan_cycle")
     arg_list, unknown = parser.parse_known_args()
@@ -35,10 +37,10 @@ def arg_parse():
 
 
 def generate_thing(args):
-    client = SoPHueManagerThing(name=args.name, ip=args.host, port=args.port,
-                                bridge_ip=args.bridge_host, bridge_port=args.bridge_port,
+    client = SoPHueManagerThing(name=args.name, ip=args.host, port=args.port, ssl_ca_path=None, ssl_enable=False,
+                                bridge_ip=args.bridge_host, bridge_port=args.bridge_port, alive_cycle=args.alive_cycle, service_list=[],
                                 user_key=args.user_key, mode=args.mode,
-                                scan_cycle=args.scan_cycle, conf_file_path='hue_room_conf.json')
+                                scan_cycle=args.scan_cycle, conf_file_path=args.config)
     client.setup(avahi_enable=False)
     client.run()
 
