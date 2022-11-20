@@ -400,3 +400,13 @@ class SoPIrTvHejhomeStaffThing(SoPHejhomeStaffThing):
     def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True, device_id: str = None, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None):
         super().__init__(name, service_list, alive_cycle, is_super, is_parallel,
                          device_id, bridge_ip, user_key, header, home_id, room_id)
+
+
+class SoPRadarPIRSensorHejhomeStaffThing(SoPHejhomeStaffThing):
+    def __init__(self, name: str, service_list: List[SoPService], alive_cycle: float, is_super: bool = False, is_parallel: bool = True, device_id: str = None, bridge_ip=None, user_key=None, header=None, home_id=None, room_id=None):
+        super().__init__(name, service_list, alive_cycle, is_super, is_parallel,
+                         device_id, bridge_ip, user_key, header, home_id, room_id)
+        self._pir_status: bool = False
+
+    def get_pir_status(self) -> bool:
+        return self._pir_status
